@@ -1,43 +1,43 @@
 # Boring Skills
 
 ```text
-+------------------------------------------------------------+
-|                         BORING SKILLS                       |
-|          Small Codex skills for repeatable workflows         |
-+------------------------------------------------------------+
++============================================================+
+|                        BORING SKILLS                       |
+|           Focused skill packs for coding agents            |
++============================================================+
 ```
 
-Boring Skills is a local collection of Codex skills designed for narrow, practical tasks that should run the same way every time. Each folder contains one focused skill with its own `SKILL.md`, so Codex can load only the instructions it needs for the current request.
+Boring Skills is a local repository of focused skill packs for coding agents. Each skill defines a repeatable workflow, clear operating constraints, and validation expectations for a specific task.
 
-The goal is not to make broad assistants. The goal is to capture useful working habits: concise answers, direct feedback, and reliable artifact generation.
+The repository is intended for practical agent behavior: fewer broad instructions, more precise execution rules.
 
-## Available Skills
+## Skills
 
-- `onepage-resume`: Creates or revises LaTeX resumes that compile to exactly one polished, full page. It emphasizes dense professional layout, compile-and-page-count validation, and strict source grounding for experience and project details.
-- `hard-feedback`: Provides direct, constructive critique when blunt feedback is more useful than soft phrasing.
-- `three-sentence`: Produces concise answers in exactly three clear sentences, with enough explanation to be useful and no filler.
+| Skill | Purpose |
+| --- | --- |
+| `onepage-resume` | Creates or revises LaTeX resumes that compile to exactly one polished page, with strict source grounding for experience and project content. |
+| `hard-feedback` | Provides direct, constructive critique when blunt review is requested. |
+| `three-sentence` | Produces concise answers in exactly three clear sentences. |
 
-## Repository Structure
-
-Each skill should live in its own directory:
+## Repository Layout
 
 ```text
 skill-name/
-  SKILL.md       # Required skill metadata and operating instructions
-  README.md      # Optional short human-facing summary
-  assets/        # Optional templates or reusable output assets
-  references/    # Optional detailed reference material
-  scripts/       # Optional deterministic helper scripts
+  SKILL.md       # Required skill metadata and instructions
+  README.md      # Optional short overview
+  assets/        # Optional reusable output assets
+  references/    # Optional reference material
+  scripts/       # Optional helper scripts
 ```
 
-## Skill Principles
+## Standards
 
-- Keep each skill focused on one repeatable workflow.
-- Put the operational rules in `SKILL.md`.
-- Avoid unnecessary files unless they directly help the skill work better.
-- Prefer clear constraints over long explanations.
-- Validate outputs when the skill produces files, documents, code, or rendered artifacts.
+- Keep each skill narrow and task-specific.
+- Put required behavior in `SKILL.md`.
+- Add supporting files only when they improve execution.
+- State constraints clearly, especially factuality and validation rules.
+- Validate generated artifacts when the output can be compiled, rendered, tested, or inspected.
 
-## Current Status
+## Notes
 
-This repo is a working local skills collection. Skills may be added, tightened, or split as workflows become clearer.
+This repository is a working local collection. Skill folders may change as workflows are refined.
