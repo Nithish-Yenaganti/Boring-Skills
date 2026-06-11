@@ -17,6 +17,7 @@ The repository is intended for practical agent behavior: fewer broad instruction
 | --- | --- |
 | `onepage-resume` | Creates or revises LaTeX resumes that compile to exactly one polished page, with strict source grounding for experience and project content. |
 | `hard-feedback` | Provides direct, constructive critique when blunt review is requested. |
+| `promptit` | Refines a user's prompt, confirms the refined version, and executes only after approval. |
 | `three-sentence` | Produces concise answers in exactly three clear sentences. |
 
 ## Repository Layout
