@@ -1,6 +1,6 @@
 ---
 name: onepage-resume
-description: Create or revise a LaTeX resume so it fits exactly one full page, with dense professional layout, no large unused whitespace, and no overflow beyond one page.
+description: Create or revise a LaTeX resume so it fits exactly one full page, with dense professional layout, no large unused whitespace, no overflow beyond one page, and an explicit ATS-readability scan/report.
 metadata:
   short-description: Make a tightly fit one-page LaTeX resume
 ---
@@ -16,6 +16,7 @@ Use this skill when the user wants a resume generated, converted, or edited as L
 - Do not let content spill to a second page, hide below the page, or require manual cropping.
 - Preserve resume quality while fitting: prioritize impact, clarity, and truthful concise wording over shrinking text to unreadable sizes.
 - Default to a professional ATS-friendly layout unless the user requests a visual or creative resume.
+- Always perform and report an ATS-readability scan after compiling, unless the required tools are unavailable.
 
 ## Workflow
 
@@ -23,8 +24,10 @@ Use this skill when the user wants a resume generated, converted, or edited as L
 2. Create or edit a `.tex` file using compact resume structure: header, summary if useful, experience, projects, skills, education, and optional awards or certifications.
 3. Compile the LaTeX source to PDF.
 4. Verify the PDF has exactly one page with `pdfinfo`, `qpdf`, `mutool`, or another available PDF inspection tool.
-5. Inspect the rendered page visually or by converting to an image when possible. Check for overflow, clipped text, excessive whitespace, tiny text, awkward wrapping, and weak section balance.
-6. Iterate layout and wording until the resume is exactly one polished, full page.
+5. Extract machine-readable text from the PDF with `pdftotext`, `mutool draw -F txt`, `python` PDF tooling, or another available text extraction tool.
+6. Run an ATS-readability scan using the extracted text and report the findings.
+7. Inspect the rendered page visually or by converting to an image when possible. Check for overflow, clipped text, excessive whitespace, tiny text, awkward wrapping, and weak section balance.
+8. Iterate layout, wording, and ATS readability until the resume is exactly one polished, full page with a clear ATS report.
 
 ## Factuality Rules
 
@@ -66,13 +69,27 @@ If the resume is too long:
 - Make hyperlinks clean and readable; include URL text only when useful.
 - Avoid fragile custom macros unless they clearly reduce repetition and improve maintainability.
 
+## ATS Scan
+
+Perform an ATS-readability scan after compiling the PDF:
+
+- Extract text from the generated PDF and confirm core content appears in logical reading order.
+- Check that name, contact details, section headings, employer names, titles, dates, education, skills, and project names are present in extracted text.
+- Check for common ATS risks: missing contact info, unreadable icons-only links, text trapped in graphics, unusual section labels, multi-column reading-order problems, tables that scramble text, excessive symbols, and missing role-relevant keywords.
+- If the user provides a target job description, compare the resume against it and report keyword/skill alignment, likely gaps, and unsupported keywords that should not be added without source evidence.
+- If the user provides an actual ATS scanner, CLI, website, or scoring tool, run that scanner when feasible and report its result separately from local readability checks.
+- If no external ATS scanner is available, clearly label the result as a local ATS-readability scan, not a guaranteed ATS score.
+
 ## Validation
 
 Always report the validation performed. A complete pass includes:
 
 - LaTeX compile command used and whether it succeeded.
 - PDF page count, which must be `1`.
+- Text extraction command used and whether it succeeded.
+- ATS-readability scan findings, including parsing risks, missing information, and target-role keyword gaps when a job description is provided.
 - Any visual/render inspection performed.
-- Remaining limitations if a tool such as LaTeX, `pdfinfo`, or image rendering is unavailable.
+- Remaining limitations if a tool such as LaTeX, `pdfinfo`, text extraction, ATS scanning, or image rendering is unavailable.
 
 Do not claim the resume fits one full page unless it has been compiled and the resulting PDF page count has been checked.
+Do not claim the resume is ATS-safe unless text extraction and ATS-readability checks have been performed and reported.
