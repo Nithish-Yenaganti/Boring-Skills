@@ -1,6 +1,7 @@
 # Boring Skills
 
-<pre style="color:#228B22;"><code>░████████                       ░██                           ░██████   ░██       ░██░██ ░██
+```
+░████████                       ░██                           ░██████   ░██       ░██░██ ░██
 ░██    ░██                                                   ░██   ░██  ░██          ░██ ░██
 ░██    ░██   ░███████  ░██░████ ░██░████████   ░████████    ░██         ░██    ░██░██░██ ░██  ░███████
 ░████████   ░██    ░██ ░███     ░██░██    ░██ ░██    ░██     ░████████  ░██   ░██ ░██░██ ░██ ░██
@@ -8,28 +9,35 @@
 ░██     ░██ ░██    ░██ ░██      ░██░██    ░██ ░██   ░███     ░██   ░██  ░██   ░██ ░██░██ ░██        ░██
 ░█████████   ░███████  ░██      ░██░██    ░██  ░█████░██      ░██████   ░██    ░██░██░██ ░██  ░███████
                                                      ░██
-                                               ░███████</code></pre>
+                                               ░███████
+```
 
-Boring Skills is a repository of focused skill packs for coding agents. Each skill defines a repeatable workflow, clear operating constraints, and validation expectations for a specific task.
+Boring Skills is a small collection of focused skill packs for coding agents. Each skill defines a repeatable workflow, clear operating constraints, and validation expectations for a specific task.
 
-The repository is intended for practical agent behavior: fewer broad instructions, more precise execution rules.
+The goal is practical agent behavior: fewer broad instructions, more precise execution rules, and useful outcomes for everyday work.
 
 ## Skills
 
-### General Help
+### Everyday Help
 
-| Skill | Purpose |
-| --- | --- |
-| `General-Help/hard-feedback` | Gives candid, constructive critique of ideas, plans, messages, decisions, or work. |
-| `General-Help/three-sentence` | Produces concise answers in exactly three clear sentences. |
-| `promptme` | Refines a user's prompt, confirms the refined version, and executes only after approval. |
+| Skill                          | Purpose                                                                                  |
+| ------------------------------ | ---------------------------------------------------------------------------------------- |
+| `Everyday-Help/hard-feedback`  | Gives candid, constructive critique of ideas, plans, messages, decisions, or work.       |
+| `Everyday-Help/three-sentence` | Produces concise answers in exactly three clear sentences.                               |
+| `Everyday-Help/promptme`       | Refines a user's prompt, confirms the refined version, and executes only after approval. |
 
-### Job Helper
+### Career Help
 
-| Skill | Purpose |
-| --- | --- |
-| `Job-Helper/job-search` | Finds current job opportunities and reports only listings verified from live sources. |
-| `Job-Helper/onepage-resume` | Creates or revises LaTeX resumes that compile to exactly one polished page, with strict source grounding for experience and project content. |
+| Skill                        | Purpose                                                                                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Career-Help/job-search`     | Finds current job opportunities and reports only listings verified from live sources.                                                        |
+| `Career-Help/onepage-resume` | Creates or revises LaTeX resumes that compile to exactly one polished page, with strict source grounding for experience and project content. |
+
+## Use
+
+Copy any skill folder into your Codex skills directory, or keep this repository as a source collection and move skills into your active setup as needed.
+
+Each skill is self-contained. The required file is `SKILL.md`; supporting files such as `assets/`, `references/`, or `scripts/` are optional and should stay inside the skill folder when present.
 
 ## Repository Layout
 
@@ -56,4 +64,4 @@ skill-name/
 
 ## Notes
 
-This repository is a working local collection. Skill folders may change as workflows are refined.
+This repository is a working collection. Skill folders may change as workflows are refined.
