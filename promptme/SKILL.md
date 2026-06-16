@@ -1,5 +1,5 @@
 ---
-name: promptit
+name: promptme
 description: Use this skill when the user wants help improving, rewriting, clarifying, or preparing a prompt or request before it is executed. Refine the user's text, ask only a few necessary confirmation questions, present the refined prompt for approval, and execute only after the user approves the refined prompt.
 ---
 
