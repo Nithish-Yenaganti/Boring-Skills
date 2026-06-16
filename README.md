@@ -12,7 +12,7 @@
                                                ░███████
 ```
 
-Boring Skills is a small collection of focused skill packs for coding agents. Each skill defines a repeatable workflow, clear operating constraints, and validation expectations for a specific task.
+Boring Skills is a small collection of focused skill packs for AI agents that support `SKILL.md`-style instructions. Each skill defines a repeatable workflow, clear operating constraints, and validation expectations for a specific task.
 
 The goal is practical agent behavior: fewer broad instructions, more precise execution rules, and useful outcomes for everyday work.
 
@@ -35,9 +35,9 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 
 ## Use
 
-Copy any skill folder into your Codex skills directory, or keep this repository as a source collection and move skills into your active setup as needed.
+Copy any skill folder into the skills directory used by your agent, or keep this repository as a source collection and move skills into your active setup as needed.
 
-Each skill is self-contained. The required file is `SKILL.md`; supporting files such as `assets/`, `references/`, or `scripts/` are optional and should stay inside the skill folder when present.
+Each skill is self-contained. The required file is `SKILL.md`; supporting files such as `assets/`, `references/`, or `scripts/` are optional and should stay inside the skill folder when present. Exact installation paths depend on the agent or tool you use.
 
 ## Repository Layout
 
