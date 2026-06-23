@@ -35,40 +35,26 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 
 ## Quick Install
 
-Use `install.sh` to copy skills into your agent's local skills directory. It fetches only raw `SKILL.md` files and does not clone the repo.
+Paste one sentence into your coding agent:
 
 Install all stable skills:
 
-```sh
-curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills all
+```text
+Install all stable skills from https://github.com/Nithish-Yenaganti/Boring-Skills by fetching each SKILL.md and saving them into my agent skills directory under their skill names.
 ```
 
 Install one skill:
 
-```sh
-curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills hard-feedback
+```text
+Install the three-sentence skill from https://github.com/Nithish-Yenaganti/Boring-Skills by fetching its SKILL.md and saving it to my agent skills directory as three-sentence/SKILL.md.
 ```
+
+Replace `three-sentence` with `hard-feedback`, `promptme`, `job-search`, or `onepage-resume`.
+
+Terminal install is also available:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills three-sentence
-```
-
-```sh
-curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills promptme
-```
-
-```sh
-curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills job-search
-```
-
-```sh
-curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills onepage-resume
-```
-
-Replace `/path/to/agent/skills` with your agent's skills directory. If you already have `SKILLS_DIR` set, you can omit `--dir`:
-
-```sh
-curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | SKILLS_DIR="$SKILLS_DIR" sh -s -- three-sentence
 ```
 
 ## Manual Install
