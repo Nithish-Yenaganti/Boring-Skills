@@ -33,11 +33,37 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 | `Career-Help/job-search`     | Finds current job opportunities and reports only listings verified from live sources.                                                        |
 | `Career-Help/onepage-resume` | Creates or revises LaTeX resumes that compile to exactly one polished page, with strict source grounding for experience and project content. |
 
-## Use
+## Quick Install
 
-Copy any skill folder into the skills directory used by your agent, or keep this repository as a source collection and move skills into your active setup as needed.
+Set `SKILLS_DIR` to the skills folder used by your agent, then paste this command:
 
-Each skill is self-contained. The required file is `SKILL.md`; supporting files such as `assets/`, `references/`, or `scripts/` are optional and should stay inside the skill folder when present. Exact installation paths depend on the agent or tool you use.
+```sh
+SKILLS_DIR="/path/to/your/agent/skills"
+REPO_URL="https://github.com/Nithish-Yenaganti/Boring-Skills.git"
+TMP_DIR="$(mktemp -d)"
+
+if [ "$SKILLS_DIR" = "/path/to/your/agent/skills" ]; then
+  echo "Set SKILLS_DIR to your agent's skills directory before running this installer."
+  exit 1
+fi
+
+git clone --depth 1 "$REPO_URL" "$TMP_DIR/boring-skills"
+mkdir -p "$SKILLS_DIR"
+
+cp -R "$TMP_DIR/boring-skills/Everyday-Help/hard-feedback" "$SKILLS_DIR/"
+cp -R "$TMP_DIR/boring-skills/Everyday-Help/three-sentence" "$SKILLS_DIR/"
+cp -R "$TMP_DIR/boring-skills/Everyday-Help/promptme" "$SKILLS_DIR/"
+cp -R "$TMP_DIR/boring-skills/Career-Help/job-search" "$SKILLS_DIR/"
+cp -R "$TMP_DIR/boring-skills/Career-Help/onepage-resume" "$SKILLS_DIR/"
+
+rm -rf "$TMP_DIR"
+```
+
+The install path depends on your agent. Use the directory where your agent loads skill folders that contain `SKILL.md`.
+
+## Manual Install
+
+Copy any skill folder into the skills directory used by your agent. Each skill is self-contained. The required file is `SKILL.md`; supporting files such as `assets/`, `references/`, or `scripts/` are optional and should stay inside the skill folder when present. Exact installation paths depend on the agent or tool you use.
 
 ## Repository Layout
 
