@@ -35,13 +35,37 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 
 ## Quick Install
 
-Paste this into your coding agent:
+Paste one of these into Codex, Claude Code, or another coding agent that can edit files.
+
+Install all stable skills:
 
 ```text
-Install the stable skills from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory by copying each folder that contains a SKILL.md file, excluding any unfinished or experimental folders.
+Install all stable skills from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory: hard-feedback, three-sentence, promptme, job-search, and onepage-resume.
 ```
 
-The agent should detect its own skills directory, clone or download this repository, and copy only complete skill folders such as `hard-feedback`, `three-sentence`, `promptme`, `job-search`, and `onepage-resume`.
+Install one skill:
+
+```text
+Install the hard-feedback skill from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory.
+```
+
+```text
+Install the three-sentence skill from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory.
+```
+
+```text
+Install the promptme skill from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory.
+```
+
+```text
+Install the job-search skill from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory.
+```
+
+```text
+Install the onepage-resume skill from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory.
+```
+
+The agent should detect its own skills directory, clone or download this repository, and copy the matching folder that contains `SKILL.md`.
 
 ## Manual Install
 
