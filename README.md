@@ -35,31 +35,13 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 
 ## Quick Install
 
-Set `SKILLS_DIR` to the skills folder used by your agent, then paste this command:
+Paste this into your coding agent:
 
-```sh
-SKILLS_DIR="/path/to/your/agent/skills"
-REPO_URL="https://github.com/Nithish-Yenaganti/Boring-Skills.git"
-TMP_DIR="$(mktemp -d)"
-
-if [ "$SKILLS_DIR" = "/path/to/your/agent/skills" ]; then
-  echo "Set SKILLS_DIR to your agent's skills directory before running this installer."
-  exit 1
-fi
-
-git clone --depth 1 "$REPO_URL" "$TMP_DIR/boring-skills"
-mkdir -p "$SKILLS_DIR"
-
-cp -R "$TMP_DIR/boring-skills/Everyday-Help/hard-feedback" "$SKILLS_DIR/"
-cp -R "$TMP_DIR/boring-skills/Everyday-Help/three-sentence" "$SKILLS_DIR/"
-cp -R "$TMP_DIR/boring-skills/Everyday-Help/promptme" "$SKILLS_DIR/"
-cp -R "$TMP_DIR/boring-skills/Career-Help/job-search" "$SKILLS_DIR/"
-cp -R "$TMP_DIR/boring-skills/Career-Help/onepage-resume" "$SKILLS_DIR/"
-
-rm -rf "$TMP_DIR"
+```text
+Install the stable skills from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory by copying each folder that contains a SKILL.md file, excluding any unfinished or experimental folders.
 ```
 
-The install path depends on your agent. Use the directory where your agent loads skill folders that contain `SKILL.md`.
+The agent should detect its own skills directory, clone or download this repository, and copy only complete skill folders such as `hard-feedback`, `three-sentence`, `promptme`, `job-search`, and `onepage-resume`.
 
 ## Manual Install
 
