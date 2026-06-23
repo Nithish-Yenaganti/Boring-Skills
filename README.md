@@ -35,37 +35,41 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 
 ## Quick Install
 
-Paste one of these into Codex, Claude Code, or another coding agent that can edit files.
+Use `install.sh` to copy skills into your agent's local skills directory. It fetches only raw `SKILL.md` files and does not clone the repo.
 
 Install all stable skills:
 
-```text
-Install all stable skills from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory: hard-feedback, three-sentence, promptme, job-search, and onepage-resume.
+```sh
+curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills all
 ```
 
 Install one skill:
 
-```text
-Install the hard-feedback skill from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory.
+```sh
+curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills hard-feedback
 ```
 
-```text
-Install the three-sentence skill from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory.
+```sh
+curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills three-sentence
 ```
 
-```text
-Install the promptme skill from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory.
+```sh
+curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills promptme
 ```
 
-```text
-Install the job-search skill from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory.
+```sh
+curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills job-search
 ```
 
-```text
-Install the onepage-resume skill from https://github.com/Nithish-Yenaganti/Boring-Skills into my agent's skills directory.
+```sh
+curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills onepage-resume
 ```
 
-The agent should detect its own skills directory, clone or download this repository, and copy the matching folder that contains `SKILL.md`.
+Replace `/path/to/agent/skills` with your agent's skills directory. If you already have `SKILLS_DIR` set, you can omit `--dir`:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | SKILLS_DIR="$SKILLS_DIR" sh -s -- three-sentence
+```
 
 ## Manual Install
 
@@ -74,6 +78,8 @@ Copy any skill folder into the skills directory used by your agent. Each skill i
 ## Repository Layout
 
 ```text
+install.sh            # Optional installer for stable skills
+
 category-name/
   skill-name/
     SKILL.md       # Required skill metadata and instructions
