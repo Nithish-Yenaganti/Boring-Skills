@@ -1,6 +1,6 @@
 ---
 name: promptme
-description: Use this skill when the user wants help improving, rewriting, clarifying, or preparing a prompt or request before it is executed. Refine the user's text, ask only a few necessary confirmation questions, present the refined prompt for approval, and execute only after the user approves the refined prompt.
+description: Use this skill when the user wants help improving, rewriting, clarifying, or preparing a prompt or request before it is executed. Refine the user's text, ask only a few necessary confirmation questions, request approval with user-input UI when available, and execute only after the user approves the refined prompt.
 ---
 
 # PromptIT
@@ -32,15 +32,28 @@ When clarification is needed, respond with:
 - A short note that execution is paused until approval.
 - Up to three numbered questions.
 
-When ready for approval, respond with:
+When ready for approval, show:
 
 - `Refined prompt:` followed by the proposed prompt.
 - `Assumptions:` only if assumptions remain.
-- `Approve this prompt and I will execute it.`
+
+Then request approval.
+
+## User Input Approval
+
+When a `request_user_input` tool or equivalent UI approval tool is available, use it after showing the refined prompt. Ask one concise approval question with these options:
+
+- `Approve and execute`: proceed with the refined prompt exactly as written.
+- `Revise prompt`: ask the user what to change, then produce a new refined prompt and request approval again.
+- `Cancel`: stop without executing.
+
+Use a short prompt such as: `Approve this refined prompt for execution?`
+
+If no user-input UI tool is available, ask in plain text: `Approve this prompt and I will execute it.`
 
 ## Execution Rules
 
 - Treat approval as required for execution, not optional.
-- Accept clear approvals such as "approved", "yes, execute", "run it", or equivalent wording.
+- Accept clear approvals such as selecting `Approve and execute`, "approved", "yes, execute", "run it", or equivalent wording.
 - If the user asks for edits to the refined prompt, revise it and request approval again.
 - If the user asks only for prompt refinement, stop after delivering the approved refined prompt and do not execute it.
