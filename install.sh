@@ -19,6 +19,7 @@ Stable skills:
   three-sentence
   promptme
   job-search
+  code-understanding
   onepage-resume
 
 Notes:
@@ -44,7 +45,7 @@ while [ "$#" -gt 0 ]; do
       usage
       exit 0
       ;;
-    all|hard-feedback|humanizer|three-sentence|promptme|job-search|onepage-resume)
+    all|code-understanding|hard-feedback|humanizer|three-sentence|promptme|job-search|onepage-resume)
       REQUESTED_SKILL="$1"
       shift
       ;;
@@ -104,6 +105,7 @@ skill_path() {
     three-sentence) echo "Everyday-Help/three-sentence/SKILL.md" ;;
     promptme) echo "Everyday-Help/promptme/SKILL.md" ;;
     job-search) echo "Career-Help/job-search/SKILL.md" ;;
+    code-understanding) echo "Developer-Help/code-understanding/SKILL.md" ;;
     onepage-resume) echo "Career-Help/onepage-resume/SKILL.md" ;;
     *)
       echo "Error: unsupported skill: $1" >&2
@@ -159,6 +161,7 @@ case "$REQUESTED_SKILL" in
     install_skill three-sentence
     install_skill promptme
     install_skill job-search
+    install_skill code-understanding
     install_skill onepage-resume
     ;;
   *)

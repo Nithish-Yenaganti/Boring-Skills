@@ -34,6 +34,12 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 | `Career-Help/job-search`     | Finds current job opportunities and reports only listings verified from live sources.                                                        |
 | `Career-Help/onepage-resume` | Creates or revises LaTeX resumes that compile to exactly one polished page, with strict source grounding for experience and project content. |
 
+### Developer Help
+
+| Skill | Purpose |
+| --- | --- |
+| `Developer-Help/code-understanding` | Explains each code change or decision through What, Why, If skipped, and Real-life example, with three sentences per part. |
+
 ## Quick Install
 
 Paste one sentence into your coding agent:
@@ -51,6 +57,8 @@ Install the three-sentence skill from https://github.com/Nithish-Yenaganti/Borin
 ```
 
 Replace `three-sentence` with `hard-feedback`, `humanizer`, `promptme`, `job-search`, or `onepage-resume`.
+
+Use `code-understanding` to install the coding explanation skill.
 
 Terminal install is also available:
 
