@@ -24,6 +24,7 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 | ------------------------------ | ---------------------------------------------------------------------------------------- |
 | `Everyday-Help/hard-feedback`  | Gives candid, constructive critique of ideas, plans, messages, decisions, or work.       |
 | `Everyday-Help/three-sentence` | Produces concise answers in exactly three clear sentences.                               |
+| `Everyday-Help/humanizer`      | Removes formulaic AI wording while preserving meaning, detail, and the writer's voice.   |
 | `Everyday-Help/promptme`       | Refines a user's prompt, confirms the refined version, and executes only after approval. |
 
 ### Career Help
@@ -49,7 +50,7 @@ Install one skill:
 Install the three-sentence skill from https://github.com/Nithish-Yenaganti/Boring-Skills by fetching its SKILL.md and saving it to my agent skills directory as three-sentence/SKILL.md.
 ```
 
-Replace `three-sentence` with `hard-feedback`, `promptme`, `job-search`, or `onepage-resume`.
+Replace `three-sentence` with `hard-feedback`, `humanizer`, `promptme`, `job-search`, or `onepage-resume`.
 
 Terminal install is also available:
 

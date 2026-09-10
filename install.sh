@@ -15,6 +15,7 @@ Examples:
 
 Stable skills:
   hard-feedback
+  humanizer
   three-sentence
   promptme
   job-search
@@ -43,7 +44,7 @@ while [ "$#" -gt 0 ]; do
       usage
       exit 0
       ;;
-    all|hard-feedback|three-sentence|promptme|job-search|onepage-resume)
+    all|hard-feedback|humanizer|three-sentence|promptme|job-search|onepage-resume)
       REQUESTED_SKILL="$1"
       shift
       ;;
@@ -99,6 +100,7 @@ fetch_url() {
 skill_path() {
   case "$1" in
     hard-feedback) echo "Everyday-Help/hard-feedback/SKILL.md" ;;
+    humanizer) echo "Everyday-Help/humanizer/SKILL.md" ;;
     three-sentence) echo "Everyday-Help/three-sentence/SKILL.md" ;;
     promptme) echo "Everyday-Help/promptme/SKILL.md" ;;
     job-search) echo "Career-Help/job-search/SKILL.md" ;;
@@ -153,6 +155,7 @@ mkdir -p "$TARGET_DIR"
 case "$REQUESTED_SKILL" in
   all)
     install_skill hard-feedback
+    install_skill humanizer
     install_skill three-sentence
     install_skill promptme
     install_skill job-search
