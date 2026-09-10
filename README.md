@@ -38,7 +38,7 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 
 | Skill | Purpose |
 | --- | --- |
-| `Developer-Help/code-understanding` | Explains each code change or decision through What, Why, If skipped, and Real-life example, with three sentences per part. |
+| `Developer-Help/code-understanding` | Explains each code change or decision through What, Why, If skipped, and Real-life example, with one sentence per part. |
 
 ## Quick Install
 
