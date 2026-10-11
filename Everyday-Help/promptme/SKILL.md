@@ -1,6 +1,6 @@
 ---
 name: promptme
-description: Use this skill when the user wants help improving, rewriting, clarifying, or preparing a prompt or request before it is executed. Refine the user's text, ask only a few necessary confirmation questions, request approval with user-input UI when available, and execute only after the user approves the refined prompt.
+description: Use this skill when the user wants help improving, rewriting, clarifying, or preparing a prompt or request before it is executed. Refine the user's text, ask only a few necessary confirmation questions, call request_user_input for approval when that tool is available, and execute only after the user approves the refined prompt.
 ---
 
 # PromptIT
@@ -37,19 +37,31 @@ When ready for approval, show:
 - `Refined prompt:` followed by the proposed prompt.
 - `Assumptions:` only if assumptions remain.
 
-Then request approval.
+Then request approval. Do not execute until the approval response is received.
 
 ## User Input Approval
 
-When a `request_user_input` tool or equivalent UI approval tool is available, use it after showing the refined prompt. Ask one concise approval question with these options:
+When `request_user_input` is listed in the available tools for the current turn, you must call it after showing the refined prompt. Do not merely print the choices as normal chat text.
+
+Use exactly one approval question with:
+
+- `header`: `Approval`
+- `id`: `prompt_approval`
+- `question`: `Approve this refined prompt for execution?`
+- `options`:
+  - `Approve and execute`: proceed with the refined prompt exactly as written.
+  - `Revise prompt`: ask the user what to change, then produce a new refined prompt and request approval again.
+  - `Cancel`: stop without executing.
+
+If the approval tool requires a recommended option label, mark `Approve and execute` as recommended. Do not set an auto-resolution timer for approval; execution requires an explicit user response.
+
+Handle the response this way:
 
 - `Approve and execute`: proceed with the refined prompt exactly as written.
 - `Revise prompt`: ask the user what to change, then produce a new refined prompt and request approval again.
 - `Cancel`: stop without executing.
 
-Use a short prompt such as: `Approve this refined prompt for execution?`
-
-If no user-input UI tool is available, ask in plain text: `Approve this prompt and I will execute it.`
+If `request_user_input` is not listed in the available tools, say that UI approval is unavailable in this context and ask in plain text: `Approve this prompt and I will execute it.`
 
 ## Execution Rules
 

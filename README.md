@@ -34,6 +34,12 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 | `Career-Help/job-search`     | Finds current job opportunities and reports only listings verified from live sources.                                                        |
 | `Career-Help/onepage-resume` | Creates or revises LaTeX resumes that compile to exactly one polished page, with strict source grounding for experience and project content. |
 
+### Design
+
+| Skill                   | Purpose                                                                                          |
+| ----------------------- | ------------------------------------------------------------------------------------------------ |
+| `Design/html-artifacts` | Creates polished HTML artifacts, visual responses, and interactive mini pages when prose is weak. |
+
 ### Developer Help
 
 | Skill | Purpose |
@@ -56,7 +62,7 @@ Install one skill:
 Install the three-sentence skill from https://github.com/Nithish-Yenaganti/Boring-Skills by fetching its SKILL.md and saving it to my agent skills directory as three-sentence/SKILL.md.
 ```
 
-Replace `three-sentence` with `hard-feedback`, `humanizer`, `promptme`, `job-search`, or `onepage-resume`.
+Replace `three-sentence` with `hard-feedback`, `humanizer`, `promptme`, `job-search`, `onepage-resume`, or `html-artifacts`.
 
 Use `code-understanding` to install the coding explanation skill.
 

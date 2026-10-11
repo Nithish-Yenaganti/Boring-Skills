@@ -21,6 +21,7 @@ Stable skills:
   job-search
   code-understanding
   onepage-resume
+  html-artifacts
 
 Notes:
   This installer does not clone the repository.
@@ -45,7 +46,7 @@ while [ "$#" -gt 0 ]; do
       usage
       exit 0
       ;;
-    all|code-understanding|hard-feedback|humanizer|three-sentence|promptme|job-search|onepage-resume)
+    all|code-understanding|hard-feedback|humanizer|three-sentence|promptme|job-search|onepage-resume|html-artifacts)
       REQUESTED_SKILL="$1"
       shift
       ;;
@@ -107,6 +108,7 @@ skill_path() {
     job-search) echo "Career-Help/job-search/SKILL.md" ;;
     code-understanding) echo "Developer-Help/code-understanding/SKILL.md" ;;
     onepage-resume) echo "Career-Help/onepage-resume/SKILL.md" ;;
+    html-artifacts) echo "Design/html-artifacts/SKILL.md" ;;
     *)
       echo "Error: unsupported skill: $1" >&2
       exit 1
@@ -163,6 +165,7 @@ case "$REQUESTED_SKILL" in
     install_skill job-search
     install_skill code-understanding
     install_skill onepage-resume
+    install_skill html-artifacts
     ;;
   *)
     install_skill "$REQUESTED_SKILL"
