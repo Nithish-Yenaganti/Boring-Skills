@@ -45,6 +45,8 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 | Skill | Purpose |
 | --- | --- |
 | `Developer-Help/code-understanding` | Explains each code change or decision through What, Why, If skipped, and Real-life example, with one sentence per part. |
+| `Developer-Help/guide-me` | Mentors a project through guided learning, shipping commitments, and separate local project memory. |
+| `senior-mindset` | Reviews project plans before building: traces the core flow, checks assumptions and risks, identifies missing pieces, and recommends decisions and milestones. |
 
 ## Quick Install
 
@@ -65,6 +67,10 @@ Install the three-sentence skill from https://github.com/Nithish-Yenaganti/Borin
 Replace `three-sentence` with `hard-feedback`, `humanizer`, `promptme`, `job-search`, `onepage-resume`, or `html-artifacts`.
 
 Use `code-understanding` to install the coding explanation skill.
+
+To install the planning review skill, copy the local `senior-mindset/` folder into your agent's skills directory (for Codex, `~/.codex/skills/senior-mindset/`). Invoke it in Codex with `$senior-mindset` and point it to your project spec or plan; it reviews the design without writing application code.
+
+For project mentoring, copy the complete `Developer-Help/guide-me/` folder, including `references/`, into your agent's skills directory as `guide-me/`. Start it in the target project with `$guide-me --start` in Codex or `/guide-me --start` in Claude Code.
 
 Terminal install is also available:
 
