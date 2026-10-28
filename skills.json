@@ -1,0 +1,80 @@
+[
+  {
+    "name": "hard-feedback",
+    "path": "Everyday-Help/hard-feedback",
+    "category": "Everyday",
+    "description": "Get candid, constructive feedback."
+  },
+  {
+    "name": "humanizer",
+    "path": "Everyday-Help/humanizer",
+    "category": "Everyday",
+    "description": "Make writing sound natural while preserving its meaning."
+  },
+  {
+    "name": "three-sentence",
+    "path": "Everyday-Help/three-sentence",
+    "category": "Everyday",
+    "description": "Get a clear answer in three sentences."
+  },
+  {
+    "name": "promptme",
+    "path": "Everyday-Help/promptme",
+    "category": "Everyday",
+    "description": "Refine a prompt, display it, and execute it automatically."
+  },
+  {
+    "name": "job-search",
+    "path": "Career-Help/job-search",
+    "category": "Career",
+    "description": "Find current jobs verified against live sources."
+  },
+  {
+    "name": "job-search-browser",
+    "path": "job-search-browser",
+    "category": "Career",
+    "description": "Verify job listings directly in a live browser."
+  },
+  {
+    "name": "onepage-resume",
+    "path": "Career-Help/onepage-resume",
+    "category": "Career",
+    "description": "Create a polished, grounded one-page LaTeX resume."
+  },
+  {
+    "name": "html-artifacts",
+    "path": "Design/html-artifacts",
+    "category": "Design",
+    "description": "Turn explanations into polished HTML and interactive tools."
+  },
+  {
+    "name": "code-understanding",
+    "path": "Developer-Help/code-understanding",
+    "category": "Development",
+    "description": "Explain code through what, why, consequences, and examples."
+  },
+  {
+    "name": "guide-me",
+    "path": "Developer-Help/guide-me",
+    "category": "Development",
+    "description": "Learn while shipping a project with guided mentoring."
+  },
+  {
+    "name": "bug-scout",
+    "path": "Developer-Help/bug-scout",
+    "category": "Development",
+    "description": "Find and verify bugs that have not already been reported."
+  },
+  {
+    "name": "senior-mindset",
+    "path": "senior-mindset",
+    "category": "Planning",
+    "description": "Review a project plan for gaps, risks, and assumptions."
+  },
+  {
+    "name": "stick-to",
+    "path": "stick-to",
+    "category": "Planning",
+    "description": "Make project decisions and keep a clear record of agreements."
+  }
+]

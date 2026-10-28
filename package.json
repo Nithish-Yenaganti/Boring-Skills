@@ -1,0 +1,51 @@
+{
+  "name": "boring-skills",
+  "version": "0.1.0",
+  "description": "Install and update practical AI agent skills for everyday work, coding, careers, and planning.",
+  "type": "module",
+  "bin": {
+    "boring-skills": "bin/boring-skills.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin/",
+    "skills.json",
+    "Everyday-Help/hard-feedback/",
+    "Everyday-Help/humanizer/",
+    "Everyday-Help/three-sentence/",
+    "Everyday-Help/promptme/",
+    "Career-Help/job-search/",
+    "job-search-browser/",
+    "Career-Help/onepage-resume/",
+    "Design/html-artifacts/",
+    "Developer-Help/code-understanding/",
+    "Developer-Help/guide-me/",
+    "Developer-Help/bug-scout/",
+    "senior-mindset/",
+    "stick-to/"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "check": "node scripts/check-package.js",
+    "prepublishOnly": "npm run check && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nithish-Yenaganti/Boring-Skills.git"
+  },
+  "homepage": "https://github.com/Nithish-Yenaganti/Boring-Skills#readme",
+  "bugs": {
+    "url": "https://github.com/Nithish-Yenaganti/Boring-Skills/issues"
+  },
+  "keywords": [
+    "agent-skills",
+    "skills",
+    "codex",
+    "claude-code"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
