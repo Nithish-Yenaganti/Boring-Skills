@@ -1,71 +1,30 @@
 ---
 name: promptme
-description: Use this skill when the user wants help improving, rewriting, clarifying, or preparing a prompt or request before it is executed. Refine the user's text, ask only a few necessary confirmation questions, call request_user_input for approval when that tool is available, and execute only after the user approves the refined prompt.
+description: Improve, clarify, or prepare a user's prompt, display the refined version, and then execute it automatically. Use when the user asks for prompt refinement; if they request only a rewritten prompt, deliver it without executing.
 ---
 
-# PromptIT
+# Promptme
 
-Use this skill to turn a rough user request into a clearer prompt before doing the requested work.
+Turn a rough request into a clear prompt, show it to the user, and proceed directly with the work without waiting for prompt approval.
 
 ## Workflow
 
-1. Read the user's original text and identify the intended outcome, missing constraints, and likely ambiguity.
-2. Ask at most three focused questions only when the answers would materially change the refined prompt.
-3. If the request is already clear enough, skip questions and draft the refined prompt directly.
-4. Present the refined prompt to the user for approval before executing it.
-5. Do not execute the original request or refined prompt until the user explicitly approves.
-6. After approval, execute exactly the approved refined prompt unless the user changes the scope.
-7. If the user changes scope, refine the prompt again and request approval again before executing.
+1. Identify the intended outcome, relevant context, constraints, and ambiguities in the user's request.
+2. Ask up to three focused clarification questions only when missing information materially affects the work and cannot reasonably be inferred. These questions clarify the task; they are not an approval step.
+3. Display `Refined prompt:` followed by the concise, improved prompt. State any remaining assumptions separately.
+4. Execute the refined prompt immediately in the same turn. Do not ask the user to approve it, call an approval tool, or wait for a confirmation response.
+5. If the user changes scope, incorporate the change, show an updated prompt when useful, and continue without adding a prompt-approval step.
 
 ## Refinement Rules
 
-- Preserve the user's intent; do not add goals, facts, constraints, tools, tone, or deliverables the user did not provide or approve.
-- Make the prompt specific about output format, scope, constraints, source material, success criteria, and any required approvals.
-- Remove vague filler and conflicting instructions.
-- Keep the refined prompt concise enough to be usable.
-- Surface assumptions separately instead of hiding them inside the refined prompt.
+- Preserve the user's intent and explicit choices. Do not invent facts, goals, constraints, tools, or deliverables.
+- Clarify scope, output format, source material, and success criteria where supported by the request or existing context; do not force every prompt into a fixed template.
+- Remove vague filler, repetition, and conflicting instructions. Keep the prompt concise and usable.
+- Make reasonable assumptions for minor gaps and disclose those that affect the result. Obtain essential missing information before doing work that depends on it.
+- Show the refined prompt as a progress update before execution; report the actual result when finished.
 
-## Confirmation Format
+## Scope and Authorization
 
-When clarification is needed, respond with:
-
-- A short note that execution is paused until approval.
-- Up to three numbered questions.
-
-When ready for approval, show:
-
-- `Refined prompt:` followed by the proposed prompt.
-- `Assumptions:` only if assumptions remain.
-
-Then request approval. Do not execute until the approval response is received.
-
-## User Input Approval
-
-When `request_user_input` is listed in the available tools for the current turn, you must call it after showing the refined prompt. Do not merely print the choices as normal chat text.
-
-Use exactly one approval question with:
-
-- `header`: `Approval`
-- `id`: `prompt_approval`
-- `question`: `Approve this refined prompt for execution?`
-- `options`:
-  - `Approve and execute`: proceed with the refined prompt exactly as written.
-  - `Revise prompt`: ask the user what to change, then produce a new refined prompt and request approval again.
-  - `Cancel`: stop without executing.
-
-If the approval tool requires a recommended option label, mark `Approve and execute` as recommended. Do not set an auto-resolution timer for approval; execution requires an explicit user response.
-
-Handle the response this way:
-
-- `Approve and execute`: proceed with the refined prompt exactly as written.
-- `Revise prompt`: ask the user what to change, then produce a new refined prompt and request approval again.
-- `Cancel`: stop without executing.
-
-If `request_user_input` is not listed in the available tools, say that UI approval is unavailable in this context and ask in plain text: `Approve this prompt and I will execute it.`
-
-## Execution Rules
-
-- Treat approval as required for execution, not optional.
-- Accept clear approvals such as selecting `Approve and execute`, "approved", "yes, execute", "run it", or equivalent wording.
-- If the user asks for edits to the refined prompt, revise it and request approval again.
-- If the user asks only for prompt refinement, stop after delivering the approved refined prompt and do not execute it.
+- If the user asks only for a rewritten prompt, or explicitly says not to execute, deliver the refined prompt and stop. Do not ask for approval of a prompt-only deliverable.
+- Automatic execution removes the prompt-review checkpoint; it does not grant additional permissions or override required approvals for the underlying actions.
+- A request to edit this skill is a skill-maintenance task, not a request to apply its prompt-refinement workflow to itself.
