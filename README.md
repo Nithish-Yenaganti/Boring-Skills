@@ -25,7 +25,7 @@ The goal is practical agent behavior: fewer broad instructions, more precise exe
 | `Everyday-Help/hard-feedback`  | Gives candid, constructive critique of ideas, plans, messages, decisions, or work.       |
 | `Everyday-Help/three-sentence` | Produces concise answers in exactly three clear sentences.                               |
 | `Everyday-Help/humanizer`      | Removes formulaic AI wording while preserving meaning, detail, and the writer's voice.   |
-| `Everyday-Help/promptme`       | Refines a user's prompt, confirms the refined version, and executes only after approval. |
+| `Everyday-Help/promptme`       | Refines and displays a user's prompt, then executes it automatically without a prompt-approval step. |
 
 ### Career Help
 
@@ -77,6 +77,22 @@ Terminal install is also available:
 ```sh
 curl -fsSL https://raw.githubusercontent.com/Nithish-Yenaganti/Boring-Skills/main/install.sh | sh -s -- --dir /path/to/agent/skills three-sentence
 ```
+
+## Using promptme
+
+Ask your agent to use `promptme` with your request. It displays the refined prompt and then executes it in the same turn, without waiting for prompt approval.
+
+```text
+Use promptme to improve and carry out this request: review this project and explain the three most important improvements.
+```
+
+For a rewrite without execution, say so explicitly:
+
+```text
+Use promptme to rewrite this prompt only; do not execute it: review this project and explain the three most important improvements.
+```
+
+The skill asks clarification questions when essential information is missing. Required permissions for the underlying actions still apply.
 
 ## Manual Install
 
