@@ -21,10 +21,9 @@ test('install all includes supporting resources and repeat runs are idempotent',
   const { target, run } = setup(t);
   ok(run('install'));
   const state = fs.readFileSync(path.join(target, '.boring-skills.json'), 'utf8');
-  assert.equal(Object.keys(JSON.parse(state).skills).length, 13);
+  assert.equal(Object.keys(JSON.parse(state).skills).length, 8);
   for (const s of catalog) assert.equal(fs.readFileSync(path.join(target, s.name, 'SKILL.md'), 'utf8'), fs.readFileSync(path.join(root, s.path, 'SKILL.md'), 'utf8'));
   assert(fs.existsSync(path.join(target, 'guide-me/references/project-state.md')));
-  assert(fs.existsSync(path.join(target, 'stick-to/assets/DECISIONS.template.md')));
   assert(!fs.existsSync(path.join(target, 'tts-agent')));
   ok(run('install', 'all'));
   assert.equal(fs.readFileSync(path.join(target, '.boring-skills.json'), 'utf8'), state);
@@ -115,4 +114,19 @@ test('a newer package replaces old managed files and removes retired resources',
   ok(update());
   assert(!fs.existsSync(path.join(target, 'promptme/example.txt')));
   assert.equal(JSON.parse(fs.readFileSync(path.join(target, '.boring-skills.json'))).skills.promptme.version, '0.2.0');
+});
+
+test('retired skills do not block updates and remain untouched on disk', t => {
+  const { target, run } = setup(t);
+  ok(run('install', 'promptme'));
+  const stateFile = path.join(target, '.boring-skills.json');
+  const state = JSON.parse(fs.readFileSync(stateFile));
+  state.skills['retired-skill'] = { version: '0.0.1', hash: 'old' };
+  fs.writeFileSync(stateFile, JSON.stringify(state));
+  fs.mkdirSync(path.join(target, 'retired-skill'));
+  fs.writeFileSync(path.join(target, 'retired-skill/SKILL.md'), 'keep local copy');
+  const result = run('update');
+  ok(result);
+  assert.match(result.stdout, /Skipped retired skills/);
+  assert.equal(fs.readFileSync(path.join(target, 'retired-skill/SKILL.md'), 'utf8'), 'keep local copy');
 });

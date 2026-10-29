@@ -2,9 +2,9 @@
 
 **Practical skills for AI agents. Install once, update with one command.**
 
-Get clearer writing, better prompts, verified job searches, useful code explanations, and more deliberate project decisions. Each skill is a readable Markdown guide that tells your agent how to handle a particular task.
+Get clearer writing, better prompts, verified job searches, useful code explanations, and guided project learning. Each skill is a readable Markdown guide that tells your agent how to handle a particular task.
 
-The installer includes **13 skills**, with their reference files and templates. It supports Codex, Claude Code, and custom skill directories.
+The installer includes **8 skills**, with their supporting reference files. It supports Codex, Claude Code, and custom skill directories.
 
 ## Install
 
@@ -46,7 +46,7 @@ Get the latest published release and refresh your installed skills:
 npx boring-skills@latest update --agent codex
 ```
 
-Use `--agent claude` or the same `--dir` you used when installing if appropriate. Updates apply to skills previously managed by this installer; to add skills introduced in later releases, run `install all` again.
+Use `--agent claude` or the same `--dir` you used when installing if appropriate. Updates apply to skills previously managed by this installer that remain in the current catalog; retired skills are left on disk and skipped. To remove a retired skill locally, delete its folder yourself. To add skills introduced in later releases, run `install all` again.
 
 **Your edits are preserved.** If a skill has local changes or a conflicting installation from another source, the command stops before replacing any skill. Back up your changes, then explicitly replace a selected skill if desired:
 
@@ -81,31 +81,21 @@ Click a skill name to read its instructions before installing it.
 | [humanizer](Everyday-Help/humanizer/SKILL.md) | Make writing sound natural while keeping your meaning and voice. |
 | [promptme](Everyday-Help/promptme/SKILL.md) | Improve your request, show the refined prompt, and execute it automatically. |
 | [three-sentence](Everyday-Help/three-sentence/SKILL.md) | Get a clear answer in exactly three sentences. |
-| [hard-feedback](Everyday-Help/hard-feedback/SKILL.md) | Get direct, constructive criticism and practical corrections. |
 
 ### Careers
 
 | Skill | What it helps you do |
 | --- | --- |
 | [job-search](Career-Help/job-search/SKILL.md) | Find current opportunities verified against live sources. |
-| [job-search-browser](job-search-browser/SKILL.md) | Check job listings directly in a live browser. |
 | [onepage-resume](Career-Help/onepage-resume/SKILL.md) | Create a polished one-page LaTeX resume grounded in your experience. |
 
-### Development and planning
+### Development
 
 | Skill | What it helps you do |
 | --- | --- |
 | [code-understanding](Developer-Help/code-understanding/SKILL.md) | Understand what changed, why, what happens without it, and a real-world example. |
 | [guide-me](Developer-Help/guide-me/SKILL.md) | Learn while shipping a project, with guided mentoring and project-specific memory. |
 | [bug-scout](Developer-Help/bug-scout/SKILL.md) | Find and verify repository bugs that have not already been reported. |
-| [senior-mindset](senior-mindset/SKILL.md) | Review a project plan for missing pieces, risks, and weak assumptions. |
-| [stick-to](stick-to/SKILL.md) | Make project decisions and preserve a clear record of agreements. |
-
-### Visual explanations
-
-| Skill | What it helps you do |
-| --- | --- |
-| [html-artifacts](Design/html-artifacts/SKILL.md) | Turn an explanation into polished HTML, a dashboard, or an interactive tool. |
 
 Prefer the terminal? Run `npx boring-skills@latest list` for the complete catalog or add `--help` for command usage.
 
@@ -148,7 +138,7 @@ node bin/boring-skills.js update --agent codex
 
 You can also manually copy a complete skill folder into your agent's skills directory. Include its `references/`, `assets/`, and `scripts/` when present. To move an older manual or shell installation under npm management, run `install` against the same target; identical copies are adopted, while differing copies require an explicit `--force` after backing them up.
 
-The older [shell installer](install.sh) remains available for its original eight skills and copies only `SKILL.md`; use the new CLI for all skills and supporting resources.
+The [shell installer](install.sh) also supports these eight skills and includes the guide-me reference file; use the npm CLI for tracked updates and local-edit protection.
 
 ## How installation works
 
@@ -157,8 +147,6 @@ The older [shell installer](install.sh) remains available for its original eight
 - `--dir PATH` uses your chosen directory.
 - With no target option, the CLI uses the sole existing Codex or Claude skills directory; if both or neither exist, it asks you to specify a target.
 - Downloads come from the npm release selected by `npx`; the installer copies the bundled skills without fetching individual files from GitHub.
-
-The empty `tts-agent` placeholder is excluded from the package.
 
 ## Contributing and releases
 

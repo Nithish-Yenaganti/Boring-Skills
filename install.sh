@@ -14,18 +14,18 @@ Examples:
   install.sh --dir /path/to/agent/skills all
 
 Stable skills:
-  hard-feedback
+  bug-scout
+  guide-me
   humanizer
   three-sentence
   promptme
   job-search
   code-understanding
   onepage-resume
-  html-artifacts
 
 Notes:
   This installer does not clone the repository.
-  It copies raw SKILL.md files into <skills-dir>/<skill-name>/SKILL.md.
+  It copies SKILL.md and required supporting files into <skills-dir>/<skill-name>/.
 EOF
 }
 
@@ -46,7 +46,7 @@ while [ "$#" -gt 0 ]; do
       usage
       exit 0
       ;;
-    all|code-understanding|hard-feedback|humanizer|three-sentence|promptme|job-search|onepage-resume|html-artifacts)
+    all|code-understanding|bug-scout|guide-me|humanizer|three-sentence|promptme|job-search|onepage-resume)
       REQUESTED_SKILL="$1"
       shift
       ;;
@@ -101,14 +101,14 @@ fetch_url() {
 
 skill_path() {
   case "$1" in
-    hard-feedback) echo "Everyday-Help/hard-feedback/SKILL.md" ;;
+    bug-scout) echo "Developer-Help/bug-scout/SKILL.md" ;;
+    guide-me) echo "Developer-Help/guide-me/SKILL.md" ;;
     humanizer) echo "Everyday-Help/humanizer/SKILL.md" ;;
     three-sentence) echo "Everyday-Help/three-sentence/SKILL.md" ;;
     promptme) echo "Everyday-Help/promptme/SKILL.md" ;;
     job-search) echo "Career-Help/job-search/SKILL.md" ;;
     code-understanding) echo "Developer-Help/code-understanding/SKILL.md" ;;
     onepage-resume) echo "Career-Help/onepage-resume/SKILL.md" ;;
-    html-artifacts) echo "Design/html-artifacts/SKILL.md" ;;
     *)
       echo "Error: unsupported skill: $1" >&2
       exit 1
@@ -142,6 +142,17 @@ install_skill() {
     exit 1
   fi
 
+  if [ "$SKILL_NAME" = "guide-me" ]; then
+    mkdir -p "$DEST_DIR/references"
+    REF_FILE="$DEST_DIR/references/project-state.md"
+    if ! fetch_url "$RAW_BASE/Developer-Help/guide-me/references/project-state.md" > "$REF_FILE.tmp" || [ ! -s "$REF_FILE.tmp" ]; then
+      rm -f "$REF_FILE.tmp" "$TMP_FILE"
+      echo "Error: failed to download guide-me reference file." >&2
+      exit 1
+    fi
+    mv "$REF_FILE.tmp" "$REF_FILE"
+  fi
+
   mv "$TMP_FILE" "$DEST_FILE"
   echo "Installed $SKILL_NAME -> $DEST_FILE"
 }
@@ -158,14 +169,14 @@ mkdir -p "$TARGET_DIR"
 
 case "$REQUESTED_SKILL" in
   all)
-    install_skill hard-feedback
+    install_skill bug-scout
+    install_skill guide-me
     install_skill humanizer
     install_skill three-sentence
     install_skill promptme
     install_skill job-search
     install_skill code-understanding
     install_skill onepage-resume
-    install_skill html-artifacts
     ;;
   *)
     install_skill "$REQUESTED_SKILL"

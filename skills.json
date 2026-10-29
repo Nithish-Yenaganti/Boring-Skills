@@ -1,11 +1,5 @@
 [
   {
-    "name": "hard-feedback",
-    "path": "Everyday-Help/hard-feedback",
-    "category": "Everyday",
-    "description": "Get candid, constructive feedback."
-  },
-  {
     "name": "humanizer",
     "path": "Everyday-Help/humanizer",
     "category": "Everyday",
@@ -30,22 +24,10 @@
     "description": "Find current jobs verified against live sources."
   },
   {
-    "name": "job-search-browser",
-    "path": "job-search-browser",
-    "category": "Career",
-    "description": "Verify job listings directly in a live browser."
-  },
-  {
     "name": "onepage-resume",
     "path": "Career-Help/onepage-resume",
     "category": "Career",
     "description": "Create a polished, grounded one-page LaTeX resume."
-  },
-  {
-    "name": "html-artifacts",
-    "path": "Design/html-artifacts",
-    "category": "Design",
-    "description": "Turn explanations into polished HTML and interactive tools."
   },
   {
     "name": "code-understanding",
@@ -64,17 +46,5 @@
     "path": "Developer-Help/bug-scout",
     "category": "Development",
     "description": "Find and verify bugs that have not already been reported."
-  },
-  {
-    "name": "senior-mindset",
-    "path": "senior-mindset",
-    "category": "Planning",
-    "description": "Review a project plan for gaps, risks, and assumptions."
-  },
-  {
-    "name": "stick-to",
-    "path": "stick-to",
-    "category": "Planning",
-    "description": "Make project decisions and keep a clear record of agreements."
   }
 ]

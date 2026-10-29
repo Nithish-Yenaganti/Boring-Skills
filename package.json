@@ -1,7 +1,7 @@
 {
   "name": "boring-skills",
   "version": "0.1.0",
-  "description": "Install and update practical AI agent skills for everyday work, coding, careers, and planning.",
+  "description": "Install and update eight practical AI agent skills for writing, coding, and careers.",
   "type": "module",
   "bin": {
     "boring-skills": "bin/boring-skills.js"
@@ -12,19 +12,14 @@
   "files": [
     "bin/",
     "skills.json",
-    "Everyday-Help/hard-feedback/",
     "Everyday-Help/humanizer/",
     "Everyday-Help/three-sentence/",
     "Everyday-Help/promptme/",
     "Career-Help/job-search/",
-    "job-search-browser/",
     "Career-Help/onepage-resume/",
-    "Design/html-artifacts/",
     "Developer-Help/code-understanding/",
     "Developer-Help/guide-me/",
-    "Developer-Help/bug-scout/",
-    "senior-mindset/",
-    "stick-to/"
+    "Developer-Help/bug-scout/"
   ],
   "scripts": {
     "test": "node --test",

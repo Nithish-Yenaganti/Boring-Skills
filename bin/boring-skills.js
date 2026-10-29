@@ -99,7 +99,11 @@ function main(args) {
   if (state.schema !== 1 || !state.skills || typeof state.skills !== 'object' || Array.isArray(state.skills)) throw new Error('Invalid installation record; restore .boring-skills.json before updating.');
   if (names.includes('all') && names.length > 1) throw new Error('Use all by itself, or specify individual skill names.');
   const selected = !names.length || names[0] === 'all'
-    ? (command === 'install' ? catalog.map(s => s.name) : Object.keys(state.skills)) : [...new Set(names)];
+    ? (command === 'install' ? catalog.map(s => s.name) : Object.keys(state.skills).filter(name => catalog.some(s => s.name === name))) : [...new Set(names)];
+  if (command === 'update') {
+    const retired = Object.keys(state.skills).filter(name => !catalog.some(s => s.name === name));
+    if (retired.length) console.log(`Skipped retired skills (left on disk): ${retired.join(', ')}`);
+  }
   const plans = selected.map(name => {
     const skill = catalog.find(s => s.name === name);
     if (!skill) throw new Error(`Unknown skill: ${name}. Use list to see available skills.`);
