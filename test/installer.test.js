@@ -24,7 +24,7 @@ test('install all includes supporting resources and repeat runs are idempotent',
   assert.equal(Object.keys(JSON.parse(state).skills).length, 8);
   for (const s of catalog) assert.equal(fs.readFileSync(path.join(target, s.name, 'SKILL.md'), 'utf8'), fs.readFileSync(path.join(root, s.path, 'SKILL.md'), 'utf8'));
   assert(fs.existsSync(path.join(target, 'guide-me/references/project-state.md')));
-  assert(!fs.existsSync(path.join(target, 'tts-agent')));
+  assert.deepEqual(fs.readdirSync(target).filter(name => !name.startsWith('.')).sort(), catalog.map(skill => skill.name).sort());
   ok(run('install', 'all'));
   assert.equal(fs.readFileSync(path.join(target, '.boring-skills.json'), 'utf8'), state);
 });
