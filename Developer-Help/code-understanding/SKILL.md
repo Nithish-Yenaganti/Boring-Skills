@@ -40,3 +40,11 @@ Give each change or decision a short descriptive title, followed by four labeled
 ## Check before responding
 
 Check that each change or decision has all four parts and that every part contains exactly one complete sentence. Keep each sentence concise rather than packing multiple explanations into a long sentence. Preserve factual grounding and an accurate analogy without exaggerating risks, implying every change is necessary, or adding unrequested quizzes or extra lessons.
+
+## Trace actual execution
+
+When behavior spans functions, state, or asynchronous boundaries, trace one concrete input through the relevant entry point, transformations, dependencies, and output. Inspect the actual call sites and configuration; distinguish reachable behavior from an illustrative path. For existing code, describe what it does rather than claiming it was newly changed.
+
+Keep the four-part explanation as the core output. When a trace materially improves understanding, add a compact input → operation → state/output table or diagram, and show where an error, retry, or boundary case changes the path. For asynchronous flows, identify ordering assumptions instead of inventing a deterministic sequence.
+
+Run an existing focused test or small isolated demonstration when tools and authorization permit. Avoid production writes or external side effects just to illustrate behavior. Record the observed output and command; label a trace inferred from code as inferred if it was not executed. Compare expected versus observed behavior and explain a failure point without treating every possible failure as an actual bug. Keep analogies subordinate to the real execution evidence.

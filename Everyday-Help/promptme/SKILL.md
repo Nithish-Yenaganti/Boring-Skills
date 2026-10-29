@@ -28,3 +28,11 @@ Turn a rough request into a clear prompt, show it to the user, and proceed direc
 - If the user asks only for a rewritten prompt, or explicitly says not to execute, deliver the refined prompt and stop. Do not ask for approval of a prompt-only deliverable.
 - Automatic execution removes the prompt-review checkpoint; it does not grant additional permissions or override required approvals for the underlying actions.
 - A request to edit this skill is a skill-maintenance task, not a request to apply its prompt-refinement workflow to itself.
+
+## Ground execution in the project
+
+For a project task, inspect the smallest relevant context before refining: applicable project instructions, the reported behavior, relevant files, and existing verification commands. Avoid reading unrelated files or turning a simple writing request into a repository audit. Separate observed facts from assumptions; if context is unavailable, say which part cannot be grounded.
+
+Turn the requested outcome into a few observable acceptance criteria when useful, and identify dependencies that could block execution. Include those criteria in the displayed prompt without inventing new scope. Then execute immediately under the existing workflow.
+
+After execution, check the actual result against each material criterion using proportionate evidence, such as an observed UI flow, a targeted test, or an inspected artifact. Report what passed, failed, or remains unverified; do not equate an attempted command with completion. If a dependency blocks progress, finish independent work and request only the missing information. A rewrite-only request stops after the refined prompt and does not run these checks.

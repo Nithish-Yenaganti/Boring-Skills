@@ -1,13 +1,19 @@
 ---
 name: three-sentence
-description: "Use this skill whenever a simple answer with a clear, proper explanation is needed, without filler or AI slop."
+description: Give a concise answer or compress a document, discussion, or decision into three meaningful sentences when the user requests brevity or invokes this skill.
 ---
 
-### Requirements
-- When the user asks you to use this skill, answer their request or question concisely without losing the full meaning or context.
-- A concise answer means three sentences only. Be strict with the sentence limit and do not over-explain.
-- You may exceed the three-sentence limit only when the topic is too complicated to answer clearly in three sentences.
-- Never assume anything without a good reason, and do not include old or unrelated chat history.
-- Answer only what is needed, and avoid creating confusion.
-- When useful, add one final sentence with your best suggested solution.
-- Verify your answer before providing the three sentences.
+# Three Sentence
+
+Deliver exactly three complete sentences by default, preserving the facts, qualifications, and context needed to understand the answer.
+
+For a decision or complex source, use the three sentences for:
+1. The direct answer or recommended decision.
+2. The decisive evidence, uncertainty, or tradeoff.
+3. The concrete next action or implication.
+
+For a simple factual question, use the same space for the answer and useful explanation rather than inventing a decision or unnecessary action. Put any recommendation within the three sentences, never as a fourth sentence. Avoid long sentences stitched together merely to satisfy the count.
+
+Read the supplied source before summarizing it. Keep decisions separate from proposals and identify unresolved disagreements rather than inventing consensus. Preserve dates, numbers, attribution, and important exceptions; link supporting evidence within the sentences when available. If an essential source is missing, ask a concise question instead of pretending to have read it.
+
+If an explicit user request requires a longer format or three sentences would omit essential safety information, honor that need. Otherwise verify the sentence count and substantive accuracy before responding. Do not add a heading, sign-off, or unrelated recap.

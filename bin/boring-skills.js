@@ -42,7 +42,7 @@ function digest(dir) {
     if (stat.isSymbolicLink()) throw new Error(`Symbolic links are not supported inside skill folders: ${p}`);
     if (stat.isDirectory()) {
       hash.update(`directory:${rel}\0`);
-      for (const name of fs.readdirSync(p).sort()) walk(path.join(p, name), `${rel}/${name}`);
+      for (const name of fs.readdirSync(p).filter(name => name !== '.DS_Store').sort()) walk(path.join(p, name), `${rel}/${name}`);
     } else if (stat.isFile()) {
       hash.update(`file:${rel}\0${stat.size}\0`);
       hash.update(fs.readFileSync(p));
@@ -137,7 +137,7 @@ function main(args) {
         const staged = path.join(temp, 'new');
         const backup = path.join(temp, 'old');
         try {
-          fs.cpSync(plan.source, staged, { recursive: true });
+          fs.cpSync(plan.source, staged, { recursive: true, filter: source => path.basename(source) !== '.DS_Store' });
           if (plan.current) fs.renameSync(plan.dest, backup);
           try { fs.renameSync(staged, plan.dest); }
           catch (e) { if (exists(backup)) fs.renameSync(backup, plan.dest); throw e; }

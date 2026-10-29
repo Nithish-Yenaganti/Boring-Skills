@@ -78,24 +78,24 @@ Click a skill name to read its instructions before installing it.
 
 | Skill | What it helps you do |
 | --- | --- |
-| [humanizer](Everyday-Help/humanizer/SKILL.md) | Make writing sound natural while keeping your meaning and voice. |
-| [promptme](Everyday-Help/promptme/SKILL.md) | Improve your request, show the refined prompt, and execute it automatically. |
-| [three-sentence](Everyday-Help/three-sentence/SKILL.md) | Get a clear answer in exactly three sentences. |
+| [humanizer](Everyday-Help/humanizer/SKILL.md) | Match your own writing voice while preserving facts and meaning. |
+| [promptme](Everyday-Help/promptme/SKILL.md) | Ground a refined request in project context, execute, and verify it. |
+| [three-sentence](Everyday-Help/three-sentence/SKILL.md) | Compress an answer, decisive evidence, and next action into three sentences. |
 
 ### Careers
 
 | Skill | What it helps you do |
 | --- | --- |
-| [job-search](Career-Help/job-search/SKILL.md) | Find current opportunities verified against live sources. |
-| [onepage-resume](Career-Help/onepage-resume/SKILL.md) | Create a polished one-page LaTeX resume grounded in your experience. |
+| [job-search](Career-Help/job-search/SKILL.md) | Verify live jobs, track opportunities, and highlight new matches. |
+| [onepage-resume](Career-Help/onepage-resume/SKILL.md) | Tailor a one-page resume from an evidence-backed achievement library. |
 
 ### Development
 
 | Skill | What it helps you do |
 | --- | --- |
-| [code-understanding](Developer-Help/code-understanding/SKILL.md) | Understand what changed, why, what happens without it, and a real-world example. |
-| [guide-me](Developer-Help/guide-me/SKILL.md) | Learn while shipping a project, with guided mentoring and project-specific memory. |
-| [bug-scout](Developer-Help/bug-scout/SKILL.md) | Find and verify repository bugs that have not already been reported. |
+| [code-understanding](Developer-Help/code-understanding/SKILL.md) | Explain code and trace real inputs, state changes, and failure points. |
+| [guide-me](Developer-Help/guide-me/SKILL.md) | Adapt mentoring and project tasks to demonstrated learning gaps. |
+| [bug-scout](Developer-Help/bug-scout/SKILL.md) | Reproduce bugs with minimal failing tests and prepare maintainer evidence. |
 
 Prefer the terminal? Run `npx boring-skills@latest list` for the complete catalog or add `--help` for command usage.
 
@@ -119,6 +119,23 @@ Use promptme to improve and carry out this request: review this project and expl
 
 For guided project mentoring, use `$guide-me --start` in Codex or `/guide-me --start` in Claude Code. Refer to each linked skill for its specific workflow.
 
+## What the upgraded skills need
+
+The npm package contains agent instructions and reusable templates, not autonomous services. Your agent carries out the work using the tools available in its environment.
+
+| Skill | Useful inputs and required capabilities |
+| --- | --- |
+| humanizer | Text to edit; optional writing samples and a chosen local voice-profile file. |
+| promptme | A request; relevant project files and verification tools for project work. |
+| three-sentence | A question, source document, or discussion to summarize. |
+| job-search | Live web or browser access; optional resume and a workspace tracker for repeated searches. |
+| onepage-resume | Factual resume material and target role; LaTeX compilation, PDF page inspection, and text extraction to validate a final PDF. |
+| code-understanding | Source code or a diff; a runnable environment for observed execution traces. |
+| guide-me | A target project and local file access for project memory and its learning map. |
+| bug-scout | Repository and test environment, plus issue/PR search access for duplicate checks. |
+
+When a tool is missing, the skill must describe the limitation rather than invent verification. Job tracking and mentoring run when invoked; they do not create background monitoring. Personal profiles, trackers, achievement libraries, and learning records belong in the user's workspace, outside installed skill folders, so package updates preserve them. Only save reusable personal records when requested and keep them out of version control unless sharing is intended.
+
 ## Install from source
 
 No npm release is needed for this route:
@@ -138,7 +155,7 @@ node bin/boring-skills.js update --agent codex
 
 You can also manually copy a complete skill folder into your agent's skills directory. Include its `references/`, `assets/`, and `scripts/` when present. To move an older manual or shell installation under npm management, run `install` against the same target; identical copies are adopted, while differing copies require an explicit `--force` after backing them up.
 
-The [shell installer](install.sh) also supports these eight skills and includes the guide-me reference file; use the npm CLI for tracked updates and local-edit protection.
+The [shell installer](install.sh) also supports these eight skills and includes all supporting templates and references; use the npm CLI for tracked updates and local-edit protection.
 
 ## How installation works
 
@@ -152,15 +169,16 @@ The [shell installer](install.sh) also supports these eight skills and includes 
 
 Keep each skill focused and readable. Put its behavior in `SKILL.md` and keep supporting resources inside its folder. For a new skill, add it to `skills.json`, the `files` list in `package.json`, and the catalog above.
 
-Validate changes and inspect the exact package contents:
+Run `npm ci` once to install development dependencies, then validate changes and inspect the exact package contents:
 
 ```sh
 npm run check
 npm test
+npm run test:package
 npm pack --dry-run
 ```
 
-Before the first public release, choose a license and confirm ownership or availability of the npm package name. Sign in to npm with an account authorized to publish; direct publishing requires the authentication described in the [npm publishing guide](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages/).
+This package uses the [MIT license](LICENSE). Before the first public release, confirm ownership or availability of the npm package name. Sign in to npm with an account authorized to publish; direct publishing requires the authentication described in the [npm publishing guide](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages/).
 
 Publish the initial `0.1.0` release with:
 
@@ -178,3 +196,5 @@ git push origin main --follow-tags
 ```
 
 Use `minor` or `major` instead of `patch` when the changes warrant it. Pushing to GitHub alone does not publish a new npm release.
+
+The prepublish check validates metadata and references, runs installer tests, and installs the actual release archive into a temporary directory to verify every bundled resource. CI runs these checks on Linux, macOS, and Windows; a passing packaging check does not by itself prove the quality of AI-generated outputs.

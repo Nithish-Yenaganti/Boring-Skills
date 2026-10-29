@@ -3,48 +3,48 @@
     "name": "humanizer",
     "path": "Everyday-Help/humanizer",
     "category": "Everyday",
-    "description": "Make writing sound natural while preserving its meaning."
+    "description": "Match your writing voice while preserving facts and meaning."
   },
   {
     "name": "three-sentence",
     "path": "Everyday-Help/three-sentence",
     "category": "Everyday",
-    "description": "Get a clear answer in three sentences."
+    "description": "Compress an answer or decision into three meaningful sentences."
   },
   {
     "name": "promptme",
     "path": "Everyday-Help/promptme",
     "category": "Everyday",
-    "description": "Refine a prompt, display it, and execute it automatically."
+    "description": "Refine requests using project context, execute, and verify the outcome."
   },
   {
     "name": "job-search",
     "path": "Career-Help/job-search",
     "category": "Career",
-    "description": "Find current jobs verified against live sources."
+    "description": "Verify job opportunities, deduplicate matches, and track progress."
   },
   {
     "name": "onepage-resume",
     "path": "Career-Help/onepage-resume",
     "category": "Career",
-    "description": "Create a polished, grounded one-page LaTeX resume."
+    "description": "Tailor one-page resumes from an evidence-backed achievement library."
   },
   {
     "name": "code-understanding",
     "path": "Developer-Help/code-understanding",
     "category": "Development",
-    "description": "Explain code through what, why, consequences, and examples."
+    "description": "Explain code and trace inputs, state changes, and failure paths."
   },
   {
     "name": "guide-me",
     "path": "Developer-Help/guide-me",
     "category": "Development",
-    "description": "Learn while shipping a project with guided mentoring."
+    "description": "Adapt project mentoring to demonstrated understanding and learning gaps."
   },
   {
     "name": "bug-scout",
     "path": "Developer-Help/bug-scout",
     "category": "Development",
-    "description": "Find and verify bugs that have not already been reported."
+    "description": "Reproduce suspected bugs and prepare evidence for maintainers."
   }
 ]

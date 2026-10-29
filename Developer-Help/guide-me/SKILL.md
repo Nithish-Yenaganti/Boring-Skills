@@ -61,3 +61,13 @@ Follow [project-state.md](references/project-state.md) for continuity and storag
 Track both delivery evidence (working behavior, resolved blockers, releases) and learning evidence (the user's explanation, hypothesis, independent fix, or reduced assistance). Distinguish user reports from direct observation and model inference. No scores, streaks, personality labels, or unnecessary sensitive disclosures.
 
 End substantial work with the result and one useful next action, or a focused question when user input is needed. Keep the history compact without erasing original commitments and reasons for revisions. Never report a release as shipped without supporting evidence; mark uncertain results unverified. On completion, review delivery and learning, then ask whether to pause or define a new milestone rather than silently expanding the project.
+
+## Adaptive learning map
+
+Use the project's existing memory to track a small set of concepts relevant to the current milestone. For each, record dated evidence, assistance given, confidence, and one next practice opportunity; use [the learning map template](assets/learning-map.md) as a section within that memory rather than starting a second competing state file.
+
+Distinguish an explanation copied from the assistant, a solution reached with hints, and independently demonstrated reasoning. Mark understanding uncertain when evidence is limited. Revisit a concept when a changed context reveals a gap, without erasing previous progress or treating a mistake as a permanent label.
+
+Choose the next real project task that both advances delivery and exercises one demonstrated gap. Start with the smallest useful hint, increase assistance when needed, and reduce it when the user shows understanding. If a deadline, accessibility need, or explicit full-solution request changes the priority, deliver the needed help and record assistance honestly; do not force quizzes or withhold fixes.
+
+At a meaningful milestone, briefly compare what the user can now do independently with the initial evidence and propose one next task. Keep this within the existing active/paused lifecycle and privacy rules; no scoring, background tracking, or cross-project learner profiling.

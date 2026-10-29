@@ -1,84 +1,34 @@
 ---
 name: bug-scout
-description: Use this skill when the user wants to scan an open-source repository for a real bug, risk, or issue that is new and not already reported, discussed, fixed, or covered by an existing GitHub issue or pull request.
+description: Investigate repository bugs, reproduce candidates in an isolated environment, search for existing reports, and prepare maintainer-ready evidence without automatically filing issues or changing the user's source tree.
 ---
 
 # Bug Scout
 
-Use this skill to find credible, non-duplicate bugs or risks in open-source repositories.
+Find reproducible behavior with concrete impact, then check whether it is already reported or fixed. Do not force a finding when evidence is weak.
 
-The default job is discovery and verification, not implementation. Do not edit files, open issues, or open pull requests unless the user explicitly asks after reviewing the finding.
+## Establish scope and baseline
 
-## Core Requirements
+Read repository instructions, contribution guidance, relevant code, test commands, and issue templates. Record the inspected commit, branch, relevant uncommitted changes, runtime, and dependency versions. Establish whether the baseline already fails before attributing failures to the candidate. Prefer small reachable behavior defects over generic code-quality opinions.
 
-- Return only findings classified as `new and verified not duplicate`.
-- Do not force a weak finding. If no new issue is found, say that clearly.
-- A valid finding must have local technical evidence and GitHub duplicate verification.
-- If GitHub issue or pull request search is unavailable, do not claim the finding is new. Mark it as `not verified`.
-- Reject candidates that appear already reported, already fixed, actively discussed, or covered by an open or closed pull request.
-- Prefer small, concrete, reproducible bugs over broad code quality opinions.
+## Reproduction lab
 
-## Workflow
+For a plausible candidate, identify expected behavior from a documented contract, existing test, or explicitly stated assumption. Choose the smallest input that exposes the observed deviation. Use an isolated temporary directory or disposable checkout for reproduction artifacts; preserve the user's working tree and include relevant uncommitted content when needed, documenting what was tested. Ask for essential missing dependencies or credentials rather than fabricating a run.
 
-1. Inspect local repository context:
-   - README and project documentation
-   - CONTRIBUTING or maintainer guidance
-   - package, build, dependency, and test configuration
-   - CI configuration
-   - issue and pull request templates
-   - relevant source files and recent changes when available
-2. Identify candidate bugs or risks using local evidence:
-   - failing or suspicious behavior
-   - fragile edge cases
-   - missing validation
-   - stale docs that cause incorrect usage
-   - TODO/FIXME comments with real user impact
-   - test gaps tied to likely breakage
-   - suspicious logic, error handling, state handling, or dependency usage
-3. For every candidate, search GitHub issues and pull requests before treating it as new.
-4. Search duplicate signals:
-   - affected file path
-   - function, class, component, command, or option name
-   - error text or log output
-   - feature area
-   - reproduction terms
-   - dependency name
-   - likely user-facing symptom
-5. Check open and closed issues and pull requests.
-6. Classify each candidate:
-   - `new and verified not duplicate`
-   - `duplicate likely`
-   - `already fixed`
-   - `actively discussed`
-   - `not verified`
-7. Return only `new and verified not duplicate` findings.
-8. Ask before implementing any fix.
+Use an existing test harness or minimal standalone script. A useful test asserts the public behavior that should hold, fails on the candidate defect, and includes a nearby passing case when useful to isolate the cause. Never count missing dependencies, network outages, or an invalid fixture as proof of the bug. Record the exact command, exit status, relevant output, and repeatability; distinguish observed failures from static suspicions. Do not claim a test ran if it was only written.
 
-## Output Format
+Compare the current revision and relevant released versions when feasible to bound the affected range. Do not label untested releases affected. If a fix is explicitly authorized, check that the same reproduction passes after the fix and that the control still passes. Without fix authorization, provide a fix direction, not an unsolicited patch to the project.
 
-For each valid finding, include:
+Avoid destructive operations, live accounts, production writes, and executing untrusted setup scripts without reviewing their effects. Keep test data synthetic and reproduction environments scoped to the investigation. If safe reproduction is unavailable, report the limitation and do not call the candidate verified.
 
-- Finding title
-- Classification: `new and verified not duplicate`
-- Evidence from local code, behavior, docs, or tests
-- Why it is likely a real bug or risk
-- Duplicate-check summary with searches performed and issues or pull requests checked
-- Why existing issues or pull requests do not cover it
-- Suggested reproduction or validation
-- Proposed fix direction
-- Recommendation: create an issue first or proceed to a pull request
+## Existing-report checks
 
-If no valid finding remains after duplicate checks, say:
+Search available issue and PR tools for open and closed reports using symptoms, error text, relevant symbols, paths, and feature names. Read plausible matches and check merged fixes against the inspected revision. Record queries, links, and search date. Classify candidates as reproduced/no duplicate found, duplicate likely, already fixed, actively discussed, or not verified.
 
-```text
-No new verified issue found. I found candidates, but they were duplicates, already fixed, actively discussed, or not verifiable from available GitHub context.
-```
+Use “no duplicate found in the searches performed,” never a guarantee that a bug is globally new. Search access limits must remain visible. Do not present an unverified candidate as a confirmed novel issue; if nothing qualifies, state that plainly without inventing candidates or searches.
 
-## Safety Rules
+## Evidence packet
 
-- Do not edit files by default.
-- Do not open GitHub issues or pull requests automatically.
-- Do not claim novelty without searching existing issues and pull requests.
-- Do not present guesses as confirmed bugs.
-- Do not use vague phrasing such as "might be worth improving" as a finding.
-- If the repo has contribution rules, follow them over this skill's defaults.
+For each reproduced candidate with no duplicate found, use [the finding template](assets/finding.md). Include the affected revision and environment, smallest reproduction, expected and actual output, user impact, duplicate-search evidence, tested version range, and proposed next step. Keep packet files outside the installed skill and provide a path when created. Remove credentials and unrelated personal data from logs.
+
+Creating a local evidence packet is part of investigation; posting an issue, contacting maintainers, opening a PR, or implementing a fix requires explicit user instruction. Follow the repository's contribution workflow for any subsequently authorized action.

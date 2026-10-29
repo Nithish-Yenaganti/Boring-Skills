@@ -76,7 +76,7 @@ test('symlinks cannot redirect an installation, even with force', t => {
   const outside = path.join(temp, 'outside');
   fs.mkdirSync(outside);
   fs.writeFileSync(path.join(outside, 'SKILL.md'), 'keep');
-  fs.symlinkSync(outside, path.join(target, 'promptme'), 'dir');
+  fs.symlinkSync(outside, path.join(target, 'promptme'), process.platform === 'win32' ? 'junction' : 'dir');
   assert.equal(run('install', 'promptme', '--force').status, 1);
   assert.equal(fs.readFileSync(path.join(outside, 'SKILL.md'), 'utf8'), 'keep');
 });
@@ -129,4 +129,23 @@ test('retired skills do not block updates and remain untouched on disk', t => {
   ok(result);
   assert.match(result.stdout, /Skipped retired skills/);
   assert.equal(fs.readFileSync(path.join(target, 'retired-skill/SKILL.md'), 'utf8'), 'keep local copy');
+});
+
+test('shell installer includes every supporting resource', { skip: process.platform === 'win32' }, t => {
+  const { temp, target } = setup(t);
+  const mock = path.join(temp, 'curl');
+  fs.writeFileSync(mock, `#!/usr/bin/env node\nconst fs = require('node:fs');\nconst path = require('node:path');\nconst relative = process.argv.at(-1).split('/main/')[1];\nprocess.stdout.write(fs.readFileSync(path.join(${JSON.stringify(root)}, relative)));\n`);
+  fs.chmodSync(mock, 0o755);
+  const result = spawnSync('sh', [path.join(root, 'install.sh'), '--dir', target, 'all'], { encoding: 'utf8', env: { ...process.env, PATH: temp + path.delimiter + process.env.PATH } });
+  ok(result);
+  function compare(source, destination) {
+    for (const entry of fs.readdirSync(source, { withFileTypes: true })) {
+      if (entry.name === '.DS_Store') continue;
+      const src = path.join(source, entry.name);
+      const dst = path.join(destination, entry.name);
+      if (entry.isDirectory()) compare(src, dst);
+      else assert.deepEqual(fs.readFileSync(dst), fs.readFileSync(src), `Shell install differs: ${dst}`);
+    }
+  }
+  for (const skill of catalog) compare(path.join(root, skill.path), path.join(target, skill.name));
 });

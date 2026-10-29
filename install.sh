@@ -142,16 +142,25 @@ install_skill() {
     exit 1
   fi
 
-  if [ "$SKILL_NAME" = "guide-me" ]; then
-    mkdir -p "$DEST_DIR/references"
-    REF_FILE="$DEST_DIR/references/project-state.md"
-    if ! fetch_url "$RAW_BASE/Developer-Help/guide-me/references/project-state.md" > "$REF_FILE.tmp" || [ ! -s "$REF_FILE.tmp" ]; then
+  # Keep this resource list in sync with the catalog; release tests verify it.
+  RESOURCE_PATHS=""
+  case "$SKILL_NAME" in
+    humanizer) RESOURCE_PATHS="assets/voice-profile.md" ;;
+    job-search) RESOURCE_PATHS="assets/opportunities.csv" ;;
+    onepage-resume) RESOURCE_PATHS="assets/achievements.md" ;;
+    guide-me) RESOURCE_PATHS="references/project-state.md assets/learning-map.md" ;;
+    bug-scout) RESOURCE_PATHS="assets/finding.md" ;;
+  esac
+  for RESOURCE_PATH in $RESOURCE_PATHS; do
+    REF_FILE="$DEST_DIR/$RESOURCE_PATH"
+    mkdir -p "$(dirname "$REF_FILE")"
+    if ! fetch_url "$RAW_BASE/${REMOTE_PATH%/SKILL.md}/$RESOURCE_PATH" > "$REF_FILE.tmp" || [ ! -s "$REF_FILE.tmp" ]; then
       rm -f "$REF_FILE.tmp" "$TMP_FILE"
-      echo "Error: failed to download guide-me reference file." >&2
+      echo "Error: failed to download $SKILL_NAME/$RESOURCE_PATH." >&2
       exit 1
     fi
     mv "$REF_FILE.tmp" "$REF_FILE"
-  fi
+  done
 
   mv "$TMP_FILE" "$DEST_FILE"
   echo "Installed $SKILL_NAME -> $DEST_FILE"

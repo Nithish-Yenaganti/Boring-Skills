@@ -93,3 +93,13 @@ Always report the validation performed. A complete pass includes:
 
 Do not claim the resume fits one full page unless it has been compiled and the resulting PDF page count has been checked.
 Do not claim the resume is ATS-safe unless text extraction and ATS-readability checks have been performed and reported.
+
+## Verified achievement library and tailored variants
+
+For repeated tailoring, use [the achievement library](assets/achievements.md) to organize facts provided by the user. Keep stable evidence IDs and source references for employers, roles, dates, achievements, tools, metrics, and projects. Separate verified facts, user-reported facts, and missing details. User-provided evidence is not independently verified unless checked; do not promote an inference into a fact.
+
+When reuse is requested, save the library outside this installed skill in a user-selected workspace, with personal records untracked in Git unless sharing is intended. Preserve existing entries and corrections. Do not upload the resume or library to external scanners without authorization.
+
+For a target job, map requirements to supported evidence IDs before editing. Select the strongest relevant achievements, distinguish direct experience from transferable skills, and leave unsupported requirements as gaps. Save each requested variant with a distinct role/company identifier rather than overwriting an unrelated resume. Keep a short change report mapping substantive bullet changes to evidence IDs and noting omitted content; do not put internal IDs in the delivered resume.
+
+Compile and validate every final variant under the existing PDF and ATS-readability workflow. Reuse a previous validation only if its exact artifact is unchanged. If compilation or inspection tools are missing, deliver the editable source and clearly mark PDF layout or extraction checks unverified; never invent a passing result. Prefer truthful content and readable type to padding the page.

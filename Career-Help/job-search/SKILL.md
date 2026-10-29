@@ -1,221 +1,38 @@
 ---
 name: job-search
-description: >
-  Use this skill whenever a user wants to search for jobs, internships, or career opportunities.
-  Trigger when the user mentions: finding a job, job search, looking for work, internship hunt,
-  career opportunities, job listings, hiring, roles available, post-grad jobs, remote jobs,
-  contract work, or anything related to finding employment. Always use this skill even if the
-  user gives only a job title or partial info — gather the rest through questions.
+description: Find and verify current job opportunities, match them to user-provided experience, and track new opportunities and application progress across searches when requested.
 ---
 
-# Job Search Skill
+# Job Search
 
-Help users find **real, currently active** job listings tailored to their role, experience, and preferences. Never fabricate listings. Never return stale or unverified results.
+Return opportunities supported by live evidence and explain why they fit. Never invent a role, posting date, eligibility requirement, salary, or application status.
 
----
+## Establish the search
 
-## Step 1: Gather Job Search Criteria
+Use the user's role, location or remote eligibility, experience, and job type. Ask only for missing constraints that materially change the search. Salary, work authorization, availability, and resume details are optional unless essential to the user's stated criteria; do not infer them. Use the current date and user's timezone when available, without requiring a particular clock tool or timestamp precision.
 
-Before searching, collect these details interactively. Ask only what you don't already have:
+Extract skills and experience only from provided materials. Separate required qualifications, preferred qualifications, and unknowns; do not present an invented numerical fit score. Do not send private resume contents to search engines; use only necessary role and skill terms.
 
-| Field | What to ask |
-|-------|-------------|
-| **Job Role / Title** | What role or title are they targeting? (e.g. "Software Engineer", "Product Designer") |
-| **Job Type** | Full-time, Part-time, Contract/Freelance, Internship, Post-grad, Remote, On-site, Hybrid |
-| **Years of Experience** | Entry-level (0–2 yrs), Mid-level (3–5 yrs), Senior (6+ yrs), Student/Internship |
-| **Location** | City, state, country — or "Remote" |
-| **Industry** (optional) | e.g. Tech, Finance, Healthcare, Startups |
-| **Resume** (optional) | Ask: *"You can paste your resume or a summary for more tailored results (optional)."* |
+## Find and verify
 
-If the user provides a resume or resume summary, extract:
-- Key skills and technologies
-- Past job titles and seniority level
-- Education level (relevant for internships/post-grad)
-- Industries worked in
+Search with available connectors, web tools, or a browser; no particular tool name is required. Prefer employer career pages and their applicant tracking systems. Use aggregators to discover candidates, then seek a canonical employer listing. Render JavaScript-dependent pages with an available browser when needed; do not bypass login or access restrictions.
 
-Use extracted resume data to **refine search queries** and **filter relevance** of results.
+Before calling a listing verified, inspect the specific role, employer, readable description, and application route, and check for closed-role notices or redirects to a generic listing page. A search snippet, mirror, or visible Apply label alone does not prove the employer still accepts applications. If verification is blocked, exclude it from verified results and explain the coverage limitation; include unverified leads separately only if requested.
 
----
+Record the source URL, verification date, observed availability, and posted date when present. Mark missing dates unknown; never substitute first-seen or verification time for the posted date. Respect explicit freshness filters, but do not reject an otherwise active role solely because its posting date is absent unless the user's filter requires it. Use stated application deadlines and start dates rather than universal seasonal cutoffs. Report remote geographic restrictions and required qualifications explicitly.
 
-## Step 2: Get the Current Date and Time
+Deduplicate by employer requisition ID where available, then canonical URL, then employer/title/location. Different requisition IDs may be distinct jobs; retain ambiguity rather than merging solely by title. Mirrors of the same requisition should not count as additional matches.
 
-Before searching, always retrieve the current date and time (with seconds) to:
-1. Anchor the search to today's date
-2. Filter out stale postings
-3. Note the search timestamp in your response
+## Track across searches
 
-Use this format in your response:
-> 🕐 Search performed: **[Weekday, Month DD, YYYY at HH:MM:SS TZ]**
+Use [the opportunity tracker](assets/opportunities.csv) when ongoing tracking is requested. Save it to a user-selected workspace location, never inside this installed skill. If no location is established, ask where to keep the tracker while continuing the current search. For Git workspaces, keep personal search and application records untracked unless the user intends to share them. Read the existing tracker before every update and preserve user notes and statuses.
 
----
+Track stable identity, first-seen and last-verified dates, observed availability, application status, and resume-grounded match notes separately. Mark a listing new only if its identity was not present in the prior tracker; the first run establishes a baseline. Lack of search visibility does not mean closed. Mark closure only from evidence and keep the historical record.
 
-## Step 3: Search for Jobs
+Application states such as applied, interviewing, rejected, or offer come from the user's report or authorized evidence, never from an inference that a link was opened. Record the source of each status change. Do not apply, contact employers, or create background monitoring without the user's explicit instruction. If using CSV, use a CSV writer, preserve quoting and Unicode, and neutralize spreadsheet-formula prefixes in external text fields before spreadsheet export.
 
-> ⚠️ **Critical**: Search results and snippets alone are NOT sufficient. You must call `web_fetch` on every candidate URL to confirm the job is still live before including it. See Verification Rules below.
+## Deliver a useful shortlist
 
-### Sources to Search (in priority order)
-1. **LinkedIn Jobs** — `site:linkedin.com/jobs`
-2. **Indeed** — `site:indeed.com`
-3. **Glassdoor** — `site:glassdoor.com/job-listing`
-4. **Greenhouse** — `site:job-boards.greenhouse.io` (use `job-boards.greenhouse.io`, NOT `boards.greenhouse.io`)
-5. **Simplify** — `site:simplify.jobs` (good mirror for verifying Ashby/Greenhouse roles)
-6. **Handshake** — ⚠️ Do NOT search or verify via web_fetch. Provide as a browse-yourself link only (requires user login)
-7. **Company career pages** — Direct searches like `[Company] careers [role]`
+Prioritize hard constraints, then source-backed relevant experience, rather than keyword counts. For each result include role/company, location and eligibility limits, direct application URL, posting date or unknown, verification time, and a short fit/gap explanation. When a tracker exists, distinguish new matches, previously seen matches, and verified closures.
 
-> ⚠️ **Do NOT use `site:jobs.ashbyhq.com` as a primary search source.** Ashby requires JavaScript and cannot be verified via web_fetch. See platform rules below.
-
-### Search Query Strategy
-
-Run **multiple targeted searches** using combinations like:
-```
-"[Job Title]" "[Job Type]" site:linkedin.com/jobs [Location] 2025 OR 2026
-"[Job Title]" "[Experience Level]" site:job-boards.greenhouse.io
-"[Job Title]" internship site:joinhandshake.com [Year]
-"[Job Title]" "[Location]" site:simplify.jobs
-```
-
-If resume data is available, add **key skills** to queries:
-```
-"[Job Title]" "[Skill1]" "[Skill2]" site:indeed.com [Location]
-```
-
----
-
-### Verification Rules — STRICT (Mandatory web_fetch step)
-
-For **every** result from search before returning it to the user, you MUST:
-
-1. **Call `web_fetch` on each URL** — fetch the actual page and read the response.
-2. **Confirm all three of the following are true** before keeping a listing:
-   - ✅ The specific **job title** appears in the fetched page's `<h1>` or `<title>` tag
-   - ✅ The word **"Apply"** appears on the page near the job title (not just anywhere)
-   - ✅ The **job description body** is readable (not a generic company page or login wall)
-   - If ANY of these three are missing or uncertain → **discard immediately**
-3. **Confirm the posting date** — only keep jobs posted within the last **60 days** (30 days preferred). If no date is visible, use your best judgment; if uncertain, discard.
-
----
-
-### Platform-Specific Verification Rules
-
-#### Greenhouse (`job-boards.greenhouse.io`)
-- ✅ Use `job-boards.greenhouse.io` URLs (not `boards.greenhouse.io` — those are embeds that block fetching)
-- ❌ **A redirect to `job-boards.greenhouse.io/company?error=true` means the job is CLOSED** — discard immediately, even if the page shows other open jobs
-- ❌ A page that loads but shows the company's full job list (not the specific role) = job is closed, discard
-- ✅ Only keep if the fetched page title is exactly "Job Application for [Role] at [Company]" and Apply button is present
-
-#### Ashby (`jobs.ashbyhq.com`)
-- ❌ **Never verify Ashby links via web_fetch** — Ashby requires JavaScript and always returns a shell page saying "You need to enable JavaScript", which is unverifiable
-- ❌ **Never include an Ashby link as a primary result** based on web_fetch alone
-- ✅ Only include an Ashby role if a **third-party mirror** (Simplify.jobs, LinkedIn, Indeed) independently confirms the role is live with a fetch date within 7 days
-- ✅ When including an Ashby role, link to the mirror confirmation page, not the Ashby URL directly, OR warn the user explicitly that the link requires manual browser verification
-
-#### LinkedIn (`linkedin.com/jobs`)
-- ❌ LinkedIn requires login — web_fetch will hit a wall or get limited content
-- ✅ Use LinkedIn search snippets as **secondary confirmation only**, never as primary verification
-- ✅ Provide LinkedIn search URLs (not individual job URLs) so the user can browse themselves
-
-#### Handshake (`joinhandshake.com`)
-- ❌ **Never verify Handshake links via web_fetch** — Handshake requires login and returns a login wall or stripped page, making job status unverifiable
-- ❌ **Never include a specific Handshake job URL** as a verified result
-- ✅ Only use Handshake as a **browse-yourself link** in the Live Search Links section, so the user can search while logged into their own account
-- ✅ Format: `https://joinhandshake.com/jobs/?job_type=INTERNSHIP&category=Software+Engineering`
-
-#### Simplify (`simplify.jobs`)
-- ✅ Good mirror for Greenhouse and Ashby roles — often shows if a role is active
-- ✅ Can be used as secondary confirmation for Ashby links
-- ⚠️ Check the "Posted" date on Simplify — if older than 60 days, treat with caution
-
----
-
-### Seasonal Logic for Internships
-
-When searching for internships, apply these date-based rules:
-
-| Internship Season | Discard After |
-|------------------|--------------|
-| Summer (May–Aug) | June 1 of that year |
-| Fall (Sep–Dec)   | September 1 of that year |
-| Winter/Spring (Jan–Apr) | January 1 of that year |
-
-If today's date is past the discard threshold for a seasonal internship, skip it — even if the listing hasn't been removed.
-
----
-
-### General Discard Rules
-
-- ❌ **Never fabricate** a job listing, company, or URL
-- ❌ **Never return** articles, blog posts, aggregator summaries, or "top companies hiring" listicles
-- ❌ **Never include a listing you did not web_fetch** — search snippets alone are not enough
-- ❌ **Never include a listing where fetch returned a generic company page, error page, or JS-only shell**
-- ❌ **Never include a role that requires 3+ years of experience** when user asked for entry-level/internship
-- ⚠️ If a link cannot be fully verified, **skip it silently** — do not show it with a caveat
-
-**After web_fetch filtering**, if fewer than 3 listings survive:
-- Run additional searches to find more candidates, then verify those too
-- Only stop when you have at least 3 verified listings OR you have exhausted reasonable search queries
-- If you truly cannot find 3 verified listings, say so honestly and provide live search links the user can browse themselves
-
----
-
-## Step 4: Format and Return Results
-
-Return results in this format:
-
----
-
-### 🔍 Job Search Results
-🕐 Search performed: **[Date and Time with seconds]**
-📋 Showing **[N] verified active listings** for: *[Role]* | *[Job Type]* | *[Location]*
-
----
-
-**1. [Job Title] — [Company Name]**
-- 📍 Location: [City, State / Remote]
-- 🕐 Posted: [Date or "X days ago"]
-- 💼 Type: [Full-time / Part-time / Contract / Internship]
-- 🔗 Apply: [Direct link to job posting]
-- 📝 Match notes: *(if resume provided)* Why this fits — e.g. "Matches your Python + ML background"
-
----
-
-*(repeat for each listing)*
-
----
-
-### ⚠️ Important Notes
-- All listings verified as of [timestamp]
-- Job availability can change — always confirm the Apply button is visible before spending time on an application
-- [Any caveats about limited results for the query]
-
----
-
-### 🔎 Live Search Links
-Always provide 2–3 live search URLs the user can click to browse current listings themselves:
-- LinkedIn: `https://www.linkedin.com/jobs/search/?keywords=[role]&location=[city]&f_JT=I&f_E=1&sortBy=DD`
-- GitHub tracker (updated daily): `https://github.com/speedyapply/2026-SWE-College-Jobs/blob/main/INTERN_USA.md`
-- Indeed: `https://www.indeed.com/jobs?q=[role]+intern&l=[city]`
-
----
-
-## Step 5: Offer Follow-Up
-
-After returning results, offer:
-- 🔄 "Search more boards or narrow by a specific company?"
-- 📄 "Want me to tailor your resume to any of these listings?"
-- 🔔 "Want tips on how to apply for any of these roles?"
-
----
-
-## Edge Cases
-
-| Situation | Behavior |
-|-----------|----------|
-| No verified results found | Say so clearly; provide live search links; suggest broadening role title, location, or job type |
-| Resume provided but no strong match | Note the gap; still return best-available listings |
-| Internship + location = very limited | Provide Handshake browse link (user must be logged in); provide Indeed/LinkedIn live search links; mention it's competitive |
-| Post-grad roles | Prioritize Handshake, LinkedIn early-career filters, and new-grad programs |
-| User only gives a vague query ("find me a job") | Ask for role, type, and location before searching |
-| Conflicting signals (e.g. "remote" + "NYC only") | Clarify before searching |
-| Ashby links can't be verified | Use Simplify.jobs mirror or warn user to manually check in browser |
-| Greenhouse redirect to ?error=true | Job is closed — discard, do not show user |
-| Summer internship searched after June 1 | Focus on Fall cycle roles instead; tell user why |
+If results are sparse, broaden only within the user's constraints or propose the smallest useful relaxation. Never pad the list with unverified jobs. Summarize what was checked and what remains unknown. Search runs occur on request; persistence does not imply background monitoring.

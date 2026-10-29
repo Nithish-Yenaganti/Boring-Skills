@@ -49,3 +49,11 @@ Return only the revised text by default. Provide an explanation or before-and-af
 **After:** "The pilot may reduce response times by up to 15%."
 
 **Already clear:** "We used robust statistics to estimate the effect." Keep this wording: "robust statistics" has a specific technical meaning.
+
+## Personal voice matching
+
+When the user provides writing samples or asks to match their voice, distinguish the samples from the text being edited. Infer only observable writing preferences: formality, sentence rhythm, vocabulary, punctuation, structure, and characteristic phrases. Do not infer identity, personality, or sensitive traits. With one short sample, mark the profile provisional; conflicting samples may reflect different audiences rather than inconsistency.
+
+Use [the voice profile template](assets/voice-profile.md) when a reusable profile is requested. Show inferred preferences for correction and save only when the user wants reuse, in a user-selected workspace location outside the installed skill. In Git projects, keep personal samples and profiles out of tracked files unless sharing is explicitly intended. Store a compact description rather than copying private samples. Reuse only profiles the user selected for this task; do not search unrelated personal files.
+
+Match voice within the requested audience and purpose; a casual sample should not make a formal application casual by default. Before returning a rewrite, compare facts, qualifications, obligations, and quoted wording against the source. Correct meaning drift even when the altered wording sounds more natural. Preserve the default of returning only the revised text; provide a voice or change explanation only when requested.
