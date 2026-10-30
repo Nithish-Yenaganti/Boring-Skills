@@ -1,10 +1,18 @@
 # Boring Skills
 
-**Practical skills for AI agents. Install once, update with one command.**
+**Eight practical skills for AI coding agents, installed and updated with one `npx` command.**
 
-Get clearer writing, better prompts, verified job searches, useful code explanations, and guided project learning. Each skill is a readable Markdown guide that tells your agent how to handle a particular task.
+Boring Skills is a small, curated set of agent skills for everyday work that tends to go wrong: writing that sounds like you, prompts that get executed and checked, job searches against live listings, resumes backed by real evidence, and code explanations, mentoring, and bug reports grounded in your actual project.
 
-The installer includes **8 skills**, with their supporting reference files. It supports Codex, Claude Code, and custom skill directories.
+Each skill is a plain Markdown `SKILL.md` file, plus any templates or references it needs, so you can read exactly what your agent will do before installing it. The npm CLI copies the skills into **Codex**, **Claude Code**, or any agent's skills directory. It tracks installed versions and won't overwrite your local edits.
+
+| Category | Skills |
+| --- | --- |
+| Everyday | humanizer, promptme, three-sentence |
+| Career | job-search, onepage-resume |
+| Development | code-understanding, guide-me, bug-scout |
+
+All skills live in [`skills/`](skills), grouped by category.
 
 ## Install
 
@@ -78,24 +86,24 @@ Click a skill name to read its instructions before installing it.
 
 | Skill | What it helps you do |
 | --- | --- |
-| [humanizer](Everyday-Help/humanizer/SKILL.md) | Match your own writing voice while preserving facts and meaning. |
-| [promptme](Everyday-Help/promptme/SKILL.md) | Ground a refined request in project context, execute, and verify it. |
-| [three-sentence](Everyday-Help/three-sentence/SKILL.md) | Keep simple answers short for the rest of the chat, with detail when needed. |
+| [humanizer](skills/everyday/humanizer/SKILL.md) | Match your own writing voice while preserving facts and meaning. |
+| [promptme](skills/everyday/promptme/SKILL.md) | Ground a refined request in project context, execute, and verify it. |
+| [three-sentence](skills/everyday/three-sentence/SKILL.md) | Keep simple answers short for the rest of the chat, with detail when needed. |
 
 ### Careers
 
 | Skill | What it helps you do |
 | --- | --- |
-| [job-search](Career-Help/job-search/SKILL.md) | Verify live jobs, track opportunities, and highlight new matches. |
-| [onepage-resume](Career-Help/onepage-resume/SKILL.md) | Tailor a one-page resume from an evidence-backed achievement library. |
+| [job-search](skills/career/job-search/SKILL.md) | Verify live jobs, track opportunities, and highlight new matches. |
+| [onepage-resume](skills/career/onepage-resume/SKILL.md) | Tailor a one-page resume from an evidence-backed achievement library. |
 
 ### Development
 
 | Skill | What it helps you do |
 | --- | --- |
-| [code-understanding](Developer-Help/code-understanding/SKILL.md) | Explain code and trace real inputs, state changes, and failure points. |
-| [guide-me](Developer-Help/guide-me/SKILL.md) | Adapt mentoring and project tasks to demonstrated learning gaps. |
-| [bug-scout](Developer-Help/bug-scout/SKILL.md) | Reproduce bugs with minimal failing tests and prepare maintainer evidence. |
+| [code-understanding](skills/development/code-understanding/SKILL.md) | Explain code and trace real inputs, state changes, and failure points. |
+| [guide-me](skills/development/guide-me/SKILL.md) | Adapt mentoring and project tasks to demonstrated learning gaps. |
+| [bug-scout](skills/development/bug-scout/SKILL.md) | Reproduce bugs with minimal failing tests and prepare maintainer evidence. |
 
 Prefer the terminal? Run `npx boring-skills@latest list` for the complete catalog or add `--help` for command usage.
 
@@ -155,9 +163,7 @@ git pull --ff-only
 node bin/boring-skills.js update --agent codex
 ```
 
-You can also manually copy a complete skill folder into your agent's skills directory. Include its `references/`, `assets/`, and `scripts/` when present. To move an older manual or shell installation under npm management, run `install` against the same target; identical copies are adopted, while differing copies require an explicit `--force` after backing them up.
-
-The [shell installer](install.sh) also supports these eight skills and includes all supporting templates and references; use the npm CLI for tracked updates and local-edit protection.
+You can also manually copy a complete skill folder into your agent's skills directory. Include its `references/`, `assets/`, and `scripts/` when present. To move an older manual installation under npm management, run `install` against the same target; identical copies are adopted, while differing copies require an explicit `--force` after backing them up.
 
 ## How installation works
 
@@ -169,7 +175,7 @@ The [shell installer](install.sh) also supports these eight skills and includes 
 
 ## Contributing and releases
 
-Keep each skill focused and readable. Put its behavior in `SKILL.md` and keep supporting resources inside its folder. For a new skill, add it to `skills.json`, the `files` list in `package.json`, and the catalog above.
+Keep each skill focused and readable. Put its behavior in `SKILL.md` and keep supporting resources inside its folder. Skills live in `skills/<category>/<name>/`. For a new skill, add its folder there, list it in `skills.json`, and add it to the catalog above.
 
 Run `npm ci` once to install development dependencies, then validate changes and inspect the exact package contents:
 

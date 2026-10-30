@@ -19,7 +19,7 @@ for (const skill of skills) {
   const metadata = parse(frontmatter[1], { uniqueKeys: true });
   assert.equal(metadata.name, skill.name);
   assert(typeof metadata.description === 'string' && metadata.description.trim().length > 0);
-  assert(pkg.files.includes(`${skill.path}/`), `Not packaged: ${skill.name}`);
+  assert(skill.path.startsWith('skills/') && pkg.files.includes('skills/'), `Not packaged: ${skill.name}`);
   assert(fs.readFileSync('README.md', 'utf8').includes(`](${skill.path}/SKILL.md)`), `Missing README link: ${skill.name}`);
   function inspect(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -39,4 +39,8 @@ for (const skill of skills) {
   }
   inspect(skill.path);
 }
+// Every packaged skill folder must be listed in the catalog.
+const folders = fs.readdirSync('skills', { withFileTypes: true }).filter(e => e.isDirectory())
+  .flatMap(c => fs.readdirSync(path.join('skills', c.name), { withFileTypes: true }).filter(e => e.isDirectory()).map(e => `skills/${c.name}/${e.name}`));
+assert.deepEqual(folders.sort(), skills.map(s => s.path).sort(), 'skills/ must contain exactly the catalog skills.');
 console.log(`Checked ${skills.length} skills: YAML metadata, local references, package paths, README links, and MIT license.`);

@@ -11,10 +11,6 @@
 tmp/
 temp/
 
-# Python caches
-__pycache__/
-*.py[cod]
-
 # Node packages and release archives
 node_modules/
 *.tgz

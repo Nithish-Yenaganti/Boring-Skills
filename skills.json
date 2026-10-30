@@ -1,49 +1,49 @@
 [
   {
     "name": "humanizer",
-    "path": "Everyday-Help/humanizer",
+    "path": "skills/everyday/humanizer",
     "category": "Everyday",
     "description": "Match your writing voice while preserving facts and meaning."
   },
   {
     "name": "three-sentence",
-    "path": "Everyday-Help/three-sentence",
+    "path": "skills/everyday/three-sentence",
     "category": "Everyday",
     "description": "Keep simple answers short throughout a chat, expanding only when needed."
   },
   {
     "name": "promptme",
-    "path": "Everyday-Help/promptme",
+    "path": "skills/everyday/promptme",
     "category": "Everyday",
     "description": "Refine requests using project context, execute, and verify the outcome."
   },
   {
     "name": "job-search",
-    "path": "Career-Help/job-search",
+    "path": "skills/career/job-search",
     "category": "Career",
     "description": "Verify job opportunities, deduplicate matches, and track progress."
   },
   {
     "name": "onepage-resume",
-    "path": "Career-Help/onepage-resume",
+    "path": "skills/career/onepage-resume",
     "category": "Career",
     "description": "Tailor one-page resumes from an evidence-backed achievement library."
   },
   {
     "name": "code-understanding",
-    "path": "Developer-Help/code-understanding",
+    "path": "skills/development/code-understanding",
     "category": "Development",
     "description": "Explain code and trace inputs, state changes, and failure paths."
   },
   {
     "name": "guide-me",
-    "path": "Developer-Help/guide-me",
+    "path": "skills/development/guide-me",
     "category": "Development",
     "description": "Adapt project mentoring to demonstrated understanding and learning gaps."
   },
   {
     "name": "bug-scout",
-    "path": "Developer-Help/bug-scout",
+    "path": "skills/development/bug-scout",
     "category": "Development",
     "description": "Reproduce suspected bugs and prepare evidence for maintainers."
   }
