@@ -9,7 +9,7 @@
     "name": "three-sentence",
     "path": "Everyday-Help/three-sentence",
     "category": "Everyday",
-    "description": "Compress an answer or decision into three meaningful sentences."
+    "description": "Keep simple answers short throughout a chat, expanding only when needed."
   },
   {
     "name": "promptme",

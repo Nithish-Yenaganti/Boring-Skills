@@ -80,7 +80,7 @@ Click a skill name to read its instructions before installing it.
 | --- | --- |
 | [humanizer](Everyday-Help/humanizer/SKILL.md) | Match your own writing voice while preserving facts and meaning. |
 | [promptme](Everyday-Help/promptme/SKILL.md) | Ground a refined request in project context, execute, and verify it. |
-| [three-sentence](Everyday-Help/three-sentence/SKILL.md) | Compress an answer, decisive evidence, and next action into three sentences. |
+| [three-sentence](Everyday-Help/three-sentence/SKILL.md) | Keep simple answers short for the rest of the chat, with detail when needed. |
 
 ### Careers
 
@@ -117,6 +117,8 @@ Use promptme to improve and carry out this request: review this project and expl
 
 `promptme` displays the improved prompt and starts the work without waiting for prompt approval. If you only want a rewrite, say **“rewrite this prompt only; do not execute it.”** Essential clarification questions and required permissions for the underlying actions still apply.
 
+`three-sentence` only needs to be invoked once in a chat: later simple answers stay within one to three short sentences, without repeated skill announcements. Complex tasks and explicit requests for detail can be longer, after which brief answers resume; ask to stop the style to turn it off for that chat.
+
 For guided project mentoring, use `$guide-me --start` in Codex or `/guide-me --start` in Claude Code. Refer to each linked skill for its specific workflow.
 
 ## What the upgraded skills need
@@ -127,7 +129,7 @@ The npm package contains agent instructions and reusable templates, not autonomo
 | --- | --- |
 | humanizer | Text to edit; optional writing samples and a chosen local voice-profile file. |
 | promptme | A request; relevant project files and verification tools for project work. |
-| three-sentence | A question, source document, or discussion to summarize. |
+| three-sentence | Invoke once per chat; simple replies stay brief, while complex tasks get the detail they need. |
 | job-search | Live web or browser access; optional resume and a workspace tracker for repeated searches. |
 | onepage-resume | Factual resume material and target role; LaTeX compilation, PDF page inspection, and text extraction to validate a final PDF. |
 | code-understanding | Source code or a diff; a runnable environment for observed execution traces. |
