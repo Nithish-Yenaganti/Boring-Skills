@@ -20,7 +20,7 @@ for (const skill of skills) {
   assert.equal(metadata.name, skill.name);
   assert(typeof metadata.description === 'string' && metadata.description.trim().length > 0);
   assert(skill.path.startsWith('skills/') && pkg.files.includes('skills/'), `Not packaged: ${skill.name}`);
-  assert(fs.readFileSync('README.md', 'utf8').includes(`](${skill.path}/SKILL.md)`), `Missing README link: ${skill.name}`);
+  assert(fs.readFileSync('README.md', 'utf8').includes(`](https://github.com/Nithish-Yenaganti/Boring-Skills/blob/main/${skill.path}/SKILL.md)`), `Missing README link: ${skill.name}`);
   function inspect(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const filename = path.join(dir, entry.name);

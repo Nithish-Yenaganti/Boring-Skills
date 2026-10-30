@@ -12,7 +12,9 @@
   "files": [
     "bin/",
     "skills/",
-    "skills.json"
+    "skills.json",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "test": "node --test",
@@ -42,5 +44,6 @@
   "license": "MIT",
   "devDependencies": {
     "yaml": "^2.9.1"
-  }
+  },
+  "readme": "README.md"
 }
