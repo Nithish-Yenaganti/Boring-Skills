@@ -1,6 +1,6 @@
 {
   "name": "boring-skills",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Install and update eight practical AI agent skills for Codex, Claude Code, and other agents: writing, prompts, careers, and code.",
   "type": "module",
   "bin": {
